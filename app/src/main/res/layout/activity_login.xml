@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
+    tools:context=".Login"
     android:background="#557571">
 
 
@@ -13,7 +13,7 @@
         android:layout_width="308dp"
         android:layout_height="46dp"
         android:layout_marginTop="20dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/rounded_text"
         android:hint="  رقم الهاتف"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -25,8 +25,7 @@
         android:layout_width="308dp"
         android:layout_height="46dp"
         android:layout_marginTop="10dp"
-        android:autofillHints="rtl"
-        android:background="#FFFFFF"
+        android:background="@drawable/rounded_text"
         android:ems="10"
         android:hint="  كلمة السر"
         android:inputType="textPassword"
@@ -44,7 +43,7 @@
         android:text="تسجيل الدخول"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:background="#FE7171"
+        android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
