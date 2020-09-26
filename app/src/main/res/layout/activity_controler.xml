@@ -108,7 +108,9 @@
                 android:layout_height="160dp"
                 android:layout_marginVertical="14dp"
                 android:background="#ffffff"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
