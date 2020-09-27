@@ -60,6 +60,12 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <!-- missions activity -->
+        <activity
+            android:name=".Missions"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <!-- teacher activity -->
         <activity
             android:name=".Teachers"
