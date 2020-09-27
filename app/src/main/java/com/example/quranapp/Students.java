@@ -30,7 +30,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teach extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
+public class Students extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
 //    private static final String TAG = Teach.class.getSimpleName();
 //    private List<Contact> contactList;
 //    private ContactsAdapter mAdapter;
@@ -46,18 +46,18 @@ public class Teach extends AppCompatActivity implements ContactsAdapter.Contacts
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activi_teach);
-        Toolbar toolbar = findViewById(R.id.toolbar_teach);
+        setContentView(R.layout.students_activity);
+        Toolbar toolbar = findViewById(R.id.students_toolbar);
         setSupportActionBar(toolbar);
-        recyclerView = findViewById(R.id.recyclerView_teach);
+        recyclerView = findViewById(R.id.students_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
-        FloatingActionButton teachFAB = findViewById(R.id.teacher_fab);
-        teachFAB.setOnClickListener(new View.OnClickListener(){
+        FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
+        studentsFAB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
+                Intent i = new Intent(getApplicationContext(), AddingStudent.class);
                 startActivity(i);
             }
         });
