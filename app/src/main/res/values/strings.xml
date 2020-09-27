@@ -5,4 +5,13 @@
     <string name="action_search">Search</string>
     <string name="search_hint">Type name…</string>
     <string name="todo">TODO</string>
+
+    <string-array name="Teachers">
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+
+    </string-array>
 </resources>

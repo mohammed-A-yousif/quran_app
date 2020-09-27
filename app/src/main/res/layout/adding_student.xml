@@ -38,6 +38,24 @@
                 android:hint="اسم الدارس"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=": اختر الشيخ"
+                android:textSize="14sp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="20dp"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_student_spinner"
+                android:layout_gravity="end"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="5dp"/>
+
 
             <EditText
                 android:id="@+id/student_living_editText"
@@ -88,14 +106,17 @@
                 android:layout_width="308dp"
                 android:layout_height="53dp"
                 android:layout_gravity="center"
-                android:layout_margin="30dp"
                 android:background="@drawable/rounded_button"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="اضافة دارس"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
