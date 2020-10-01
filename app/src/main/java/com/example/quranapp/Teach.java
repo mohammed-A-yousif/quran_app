@@ -31,17 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Teach extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
-//    private static final String TAG = Teach.class.getSimpleName();
-//    private List<Contact> contactList;
-//    private ContactsAdapter mAdapter;
-//    private SearchView searchView;
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<Contact> listItems;
-
-    // url to fetch contacts json
-//    private static final String URL = "https://api.androidhive.info/json/contacts.json";
+    private MyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +39,10 @@ public class Teach extends AppCompatActivity implements ContactsAdapter.Contacts
         setContentView(R.layout.activi_teach);
         Toolbar toolbar = findViewById(R.id.toolbar_teach);
         setSupportActionBar(toolbar);
-        recyclerView = findViewById(R.id.recyclerView_teach);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listItems = new ArrayList<>();
+        List<Contact> listItems = new ArrayList<>();
         FloatingActionButton teachFAB = findViewById(R.id.teacher_fab);
         teachFAB.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -69,22 +59,8 @@ public class Teach extends AppCompatActivity implements ContactsAdapter.Contacts
         adapter = new MyAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
 
-        // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
-//        RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
-//        contactList = new ArrayList<>();
-//        mAdapter = new ContactsAdapter(this, contactList, this);
-
-
-        // white background notification bar
-
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(mAdapter);
-
-
     }
 
 
@@ -109,6 +85,7 @@ public class Teach extends AppCompatActivity implements ContactsAdapter.Contacts
 
             @Override
             public boolean onQueryTextChange(String newText) {
+adapter.getFilter().filter(newText);
                 return false;
             }
         });

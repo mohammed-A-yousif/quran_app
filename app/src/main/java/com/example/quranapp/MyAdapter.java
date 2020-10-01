@@ -5,19 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.Filter;
+import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements Filterable {
     private List<Contact> listItems;
-    private Context context;
+    private List<Contact> listItemsFiltered;
 
     public MyAdapter(List<Contact> listItems, Context context) {
         this.listItems = listItems;
-        this.context = context;
+        listItemsFiltered = new ArrayList<>(listItems);
     }
 
     @NonNull
@@ -53,4 +55,38 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             textViewDate = itemView.findViewById(R.id.date_textView);
         }
     }
+
+    @Override
+    public Filter getFilter() {
+        return contactFilter;
+    }
+
+    private Filter contactFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Contact> filteredList =new ArrayList<>();
+
+            if (constraint==null|| constraint.length()==0){
+                filteredList.addAll(listItemsFiltered);
+            }else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Contact item : listItemsFiltered){
+                    if (item.getName().toLowerCase().contains(filterPattern) || item.getPhone().contains(filterPattern)){
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results =new FilterResults();
+            results.values=filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            listItems.clear();
+            listItems.addAll((List)results.values);
+            notifyDataSetChanged();
+
+        }
+    };
 }

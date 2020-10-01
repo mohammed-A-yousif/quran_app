@@ -14,10 +14,11 @@
         android:layout_height="46dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/rounded_text"
-        android:hint="  رقم الهاتف"
+        android:hint="@string/phone_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
+        android:textDirection="rtl"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
@@ -27,8 +28,9 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/rounded_text"
         android:ems="10"
-        android:hint="  كلمة السر"
+        android:hint="@string/password"
         android:inputType="textPassword"
+        android:textDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +42,7 @@
         android:layout_height="53dp"
         android:layout_marginTop="28dp"
         app:layout_constraintCircleRadius="50dp"
-        android:text="تسجيل الدخول"
+        android:text="@string/enter"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
         android:background="@drawable/rounded_button"

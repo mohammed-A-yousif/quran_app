@@ -31,17 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Missions extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
-//    private static final String TAG = Teach.class.getSimpleName();
-//    private List<Contact> contactList;
-//    private ContactsAdapter mAdapter;
-//    private SearchView searchView;
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<Contact> listItems;
-
-    // url to fetch contacts json
-//    private static final String URL = "https://api.androidhive.info/json/contacts.json";
+    private MissionsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +39,10 @@ public class Missions extends AppCompatActivity implements ContactsAdapter.Conta
         setContentView(R.layout.missions_activity);
         Toolbar toolbar = findViewById(R.id.missions_toolbar);
         setSupportActionBar(toolbar);
-        recyclerView = findViewById(R.id.missions_recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.missions_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listItems = new ArrayList<>();
+        List<Contact> listItems = new ArrayList<>();
 
         for (int i = 0; i <10; i++) {
             Contact listItem = new Contact("Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
@@ -64,21 +54,7 @@ public class Missions extends AppCompatActivity implements ContactsAdapter.Conta
         // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
-//        RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
-//        contactList = new ArrayList<>();
-//        mAdapter = new ContactsAdapter(this, contactList, this);
-
-
-        // white background notification bar
-
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(mAdapter);
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,6 +77,7 @@ public class Missions extends AppCompatActivity implements ContactsAdapter.Conta
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
                 return false;
             }
         });
