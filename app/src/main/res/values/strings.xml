@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">Quran App</string>
     <string name="action_settings">Settings</string>
-    <string name="toolbar_title">Contacts</string>
+    <string name="toolbar_title">بحث</string>
     <string name="action_search">Search</string>
     <string name="search_hint">Type name…</string>
     <string name="todo">TODO</string>
+    <string name="phone_number">رقم الهاتف</string>
+    <string name="password">كلمة السر</string>
+    <string name="enter">تسجيل الدخول</string>
+
+    <string-array name="Teachers">
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+        <item>محمد أحمد</item>
+
+    </string-array>
 </resources>

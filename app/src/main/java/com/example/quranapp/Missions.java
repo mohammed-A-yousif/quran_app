@@ -30,39 +30,31 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teach extends AppCompatActivity implements MyAdapter.MyAdapterListener {
-    private MyAdapter adapter;
+public class Missions extends AppCompatActivity implements MissionsAdapter.MissionsAdapterListener {
+    private MissionsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activi_teach);
-        Toolbar toolbar = findViewById(R.id.toolbar_teach);
+        setContentView(R.layout.missions_activity);
+        Toolbar toolbar = findViewById(R.id.missions_toolbar);
         setSupportActionBar(toolbar);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
+        RecyclerView recyclerView = findViewById(R.id.missions_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Contact> listItems = new ArrayList<>();
-        FloatingActionButton teachFAB = findViewById(R.id.teacher_fab);
-        teachFAB.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
-                startActivity(i);
-            }
-        });
 
         for (int i = 0; i <10; i++) {
             Contact listItem = new Contact("Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
             listItems.add(listItem);
         }
-        adapter = new MyAdapter(listItems, this);
+        adapter = new MissionsAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
 
+        // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,7 +77,7 @@ public class Teach extends AppCompatActivity implements MyAdapter.MyAdapterListe
 
             @Override
             public boolean onQueryTextChange(String newText) {
-adapter.getFilter().filter(newText);
+                adapter.getFilter().filter(newText);
                 return false;
             }
         });

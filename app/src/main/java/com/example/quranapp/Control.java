@@ -15,6 +15,7 @@ public class Control extends AppCompatActivity {
         setContentView(R.layout.activity_controler);
         CardView teach_cardView =  findViewById(R.id.teach_cardView);
         CardView students_cardView = findViewById(R.id.students_cardView);
+        CardView missions_cardView = findViewById(R.id.stud_missions_cardView);
 
 
         teach_cardView.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +30,14 @@ public class Control extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Students.class);
+                startActivity(i);
+            }
+        });
+
+        missions_cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), Missions.class);
                 startActivity(i);
             }
         });

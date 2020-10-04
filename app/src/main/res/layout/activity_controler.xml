@@ -223,7 +223,7 @@
                 android:textSize="10sp" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/stud_mission_cardView"
+                android:id="@+id/stud_missions_cardView"
                 android:layout_width="140dp"
                 android:layout_height="160dp"
                 android:layout_marginVertical="14dp"

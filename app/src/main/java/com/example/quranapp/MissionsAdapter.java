@@ -4,28 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements Filterable {
+public class MissionsAdapter extends RecyclerView.Adapter<MissionsAdapter.ViewHolder> implements Filterable {
     private List<Contact> listItems;
     private List<Contact> listItemsFiltered;
 
-    public MyAdapter(List<Contact> listItems, Context context) {
+
+    public MissionsAdapter(List<Contact> listItems, Context context) {
         this.listItems = listItems;
         listItemsFiltered = new ArrayList<>(listItems);
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row_teach, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_mission, parent, false);
         return new ViewHolder(v);
     }
 
@@ -42,6 +45,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         return listItems.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return contactFilter;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewName;
         public TextView textViewPhone;
@@ -50,17 +58,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewName = itemView.findViewById(R.id.teacher_name_textView);
-            textViewPhone = itemView.findViewById(R.id.phone_num_textView);
-            textViewDate = itemView.findViewById(R.id.date_textView);
+            textViewName = itemView.findViewById(R.id.mission_row_name_textView);
+            textViewPhone = itemView.findViewById(R.id.mission_row_phone_textView);
+            textViewDate = itemView.findViewById(R.id._mission_row_date_textView);
         }
     }
-
-    @Override
-    public Filter getFilter() {
-        return contactFilter;
-    }
-
     private Filter contactFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -89,7 +91,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
 
         }
     };
-    public interface MyAdapterListener {
+
+    public interface MissionsAdapterListener {
         void onContactSelected(Contact contact);
     }
+
 }

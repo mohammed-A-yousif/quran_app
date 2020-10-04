@@ -30,15 +30,8 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Students extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
-//    private static final String TAG = Teach.class.getSimpleName();
-//    private List<Contact> contactList;
-//    private ContactsAdapter mAdapter;
-//    private SearchView searchView;
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<Contact> listItems;
+public class Students extends AppCompatActivity implements MyAdapter.MyAdapterListener {
+    private MyAdapter adapter;
 
     // url to fetch contacts json
 //    private static final String URL = "https://api.androidhive.info/json/contacts.json";
@@ -49,10 +42,10 @@ public class Students extends AppCompatActivity implements ContactsAdapter.Conta
         setContentView(R.layout.students_activity);
         Toolbar toolbar = findViewById(R.id.students_toolbar);
         setSupportActionBar(toolbar);
-        recyclerView = findViewById(R.id.students_recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.students_recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listItems = new ArrayList<>();
+        List<Contact> listItems = new ArrayList<>();
         FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
         studentsFAB.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -72,21 +65,7 @@ public class Students extends AppCompatActivity implements ContactsAdapter.Conta
         // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
-//        RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
-//        contactList = new ArrayList<>();
-//        mAdapter = new ContactsAdapter(this, contactList, this);
-
-
-        // white background notification bar
-
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(mLayoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(mAdapter);
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,6 +88,8 @@ public class Students extends AppCompatActivity implements ContactsAdapter.Conta
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+
                 return false;
             }
         });
