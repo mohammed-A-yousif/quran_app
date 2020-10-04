@@ -92,4 +92,8 @@ public class MissionsAdapter extends RecyclerView.Adapter<MissionsAdapter.ViewHo
         }
     };
 
+    public interface MissionsAdapterListener {
+        void onContactSelected(Contact contact);
+    }
+
 }

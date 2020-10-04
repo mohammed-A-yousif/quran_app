@@ -30,7 +30,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Students extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
+public class Students extends AppCompatActivity implements MyAdapter.MyAdapterListener {
     private MyAdapter adapter;
 
     // url to fetch contacts json

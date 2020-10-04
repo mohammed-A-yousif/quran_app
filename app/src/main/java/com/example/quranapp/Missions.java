@@ -30,7 +30,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Missions extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
+public class Missions extends AppCompatActivity implements MissionsAdapter.MissionsAdapterListener {
     private MissionsAdapter adapter;
 
     @Override

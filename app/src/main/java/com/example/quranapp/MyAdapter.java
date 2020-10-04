@@ -89,4 +89,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
 
         }
     };
+    public interface MyAdapterListener {
+        void onContactSelected(Contact contact);
+    }
 }

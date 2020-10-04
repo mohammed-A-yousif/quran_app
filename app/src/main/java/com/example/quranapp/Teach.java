@@ -30,7 +30,7 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teach extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
+public class Teach extends AppCompatActivity implements MyAdapter.MyAdapterListener {
     private MyAdapter adapter;
 
     @Override
