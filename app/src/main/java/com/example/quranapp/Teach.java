@@ -39,11 +39,14 @@ public class Teach extends AppCompatActivity implements MyAdapter.MyAdapterListe
         setContentView(R.layout.activi_teach);
         Toolbar toolbar = findViewById(R.id.toolbar_teach);
         setSupportActionBar(toolbar);
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Contact> listItems = new ArrayList<>();
         FloatingActionButton teachFAB = findViewById(R.id.teacher_fab);
+
         teachFAB.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
