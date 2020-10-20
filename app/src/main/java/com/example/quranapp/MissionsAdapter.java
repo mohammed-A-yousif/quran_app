@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MissionsAdapter extends RecyclerView.Adapter<MissionsAdapter.ViewHolder> implements Filterable {
-    private List<Contact> listItems;
-    private List<Contact> listItemsFiltered;
+    private List<Teacher> listItems;
+    private List<Teacher> listItemsFiltered;
 
 
-    public MissionsAdapter(List<Contact> listItems, Context context) {
+    public MissionsAdapter(List<Teacher> listItems, Context context) {
         this.listItems = listItems;
         listItemsFiltered = new ArrayList<>(listItems);
 
@@ -34,7 +34,7 @@ public class MissionsAdapter extends RecyclerView.Adapter<MissionsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Contact listItem = listItems.get(position);
+        Teacher listItem = listItems.get(position);
         holder.textViewName.setText(listItem.getName());
         holder.textViewPhone.setText(listItem.getPhone());
         holder.textViewDate.setText(listItem.getDate());
@@ -66,13 +66,13 @@ public class MissionsAdapter extends RecyclerView.Adapter<MissionsAdapter.ViewHo
     private Filter contactFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Contact> filteredList =new ArrayList<>();
+            List<Teacher> filteredList =new ArrayList<>();
 
             if (constraint==null|| constraint.length()==0){
                 filteredList.addAll(listItemsFiltered);
             }else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Contact item : listItemsFiltered){
+                for (Teacher item : listItemsFiltered){
                     if (item.getName().toLowerCase().contains(filterPattern) || item.getPhone().contains(filterPattern)){
                         filteredList.add(item);
                     }
@@ -93,7 +93,7 @@ public class MissionsAdapter extends RecyclerView.Adapter<MissionsAdapter.ViewHo
     };
 
     public interface MissionsAdapterListener {
-        void onContactSelected(Contact contact);
+        void onContactSelected(Teacher teacher);
     }
 
 }

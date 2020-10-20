@@ -1,16 +1,13 @@
 package com.example.quranapp;
 
-/**
- * Created by ravi on 16/11/17.
- */
 
-public class Contact {
+public class Teacher {
     String name;
     String phone;
     String date;
 
 
-    public Contact(String name, String phone, String date) {
+    public Teacher(String name, String phone, String date) {
         this.name = name;
         this.phone = phone;
         this.date = date;

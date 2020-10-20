@@ -22,7 +22,7 @@ public class Control extends AppCompatActivity {
         teach_cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Teach.class);
+                Intent i = new Intent(getApplicationContext(), TeacherActivity.class);
                 startActivity(i);
             }
         });

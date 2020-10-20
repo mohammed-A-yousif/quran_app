@@ -7,6 +7,9 @@ public class URLs {
     public static String Login = BaseUrl + "admin_login/";
     public static String AddTeacher = BaseUrl + "teacher_register/";
 
+    public static String GetTeachers = BaseUrl + "teachers/";
+
+
 
     public static String getBaseUrl() {
         return BaseUrl;

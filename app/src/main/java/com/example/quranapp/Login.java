@@ -29,6 +29,12 @@ public class Login  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, Control.class));
+            return;
+        }
+
         EditText phoneEditText = (EditText) findViewById(R.id.phone_ET);
         EditText passEditText = (EditText) findViewById(R.id.pass_ET);
 

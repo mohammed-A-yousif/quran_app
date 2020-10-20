@@ -27,7 +27,7 @@ import java.util.List;
 
 public class Teachers extends AppCompatActivity implements ContactsAdapter.ContactsAdapterListener {
     private static final String TAG = Teachers.class.getSimpleName();
-    private List<Contact> contactList;
+    private List<Teacher> mTeacherList;
     private ContactsAdapter mAdapter;
     private SearchView searchView;
 
@@ -46,8 +46,8 @@ public class Teachers extends AppCompatActivity implements ContactsAdapter.Conta
         getSupportActionBar().setTitle(R.string.toolbar_title);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        contactList = new ArrayList<>();
-        mAdapter = new ContactsAdapter(this, contactList, this);
+        mTeacherList = new ArrayList<>();
+        mAdapter = new ContactsAdapter(this, mTeacherList, this);
 
         // white background notification bar
 
@@ -73,12 +73,12 @@ public class Teachers extends AppCompatActivity implements ContactsAdapter.Conta
                             return;
                         }
 
-                        List<Contact> items = new Gson().fromJson(response.toString(), new TypeToken<List<Contact>>() {
+                        List<Teacher> items = new Gson().fromJson(response.toString(), new TypeToken<List<Teacher>>() {
                         }.getType());
 
                         // adding contacts to contacts list
-                        contactList.clear();
-                        contactList.addAll(items);
+                        mTeacherList.clear();
+                        mTeacherList.addAll(items);
 
                         // refreshing recycler view
                         mAdapter.notifyDataSetChanged();
@@ -153,7 +153,7 @@ public class Teachers extends AppCompatActivity implements ContactsAdapter.Conta
 
 
     @Override
-    public void onContactSelected(Contact contact) {
-        Toast.makeText(getApplicationContext(), "Selected: " + contact.getName() + ", " + contact.getPhone(), Toast.LENGTH_LONG).show();
+    public void onContactSelected(Teacher teacher) {
+        Toast.makeText(getApplicationContext(), "Selected: " + teacher.getName() + ", " + teacher.getPhone(), Toast.LENGTH_LONG).show();
     }
 }

@@ -95,7 +95,7 @@ public class AddingTeacher extends AppCompatActivity {
 //        viewDialog.hideDialog();
         Snackbar.make(findViewById(android.R.id.content), "Sign in Successfully", Snackbar.LENGTH_LONG)
                 .show();
-        startActivity(new Intent(this, Control.class));
+        startActivity(new Intent(this, TeacherActivity.class));
         finish();
     }
 }

@@ -37,7 +37,7 @@
 
         <!-- teach activity -->
         <activity
-            android:name=".Teach"
+            android:name=".TeacherActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
