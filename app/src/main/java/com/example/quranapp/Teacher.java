@@ -13,6 +13,19 @@ public class Teacher {
         this.date = date;
     }
 
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getName() {
         return name;
     }
