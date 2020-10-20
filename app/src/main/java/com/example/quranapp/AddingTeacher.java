@@ -24,13 +24,12 @@ public class AddingTeacher extends AppCompatActivity {
     EditText teacher_living_editText;
     EditText teacher_phone_editText;
     EditText teacher_password_editText;
-    EditText teacher_AcademicLevel_editText;
+
 
     String teacher_name_;
     String teacher_living_;
     String teacher_phone_;
     String teacher_password_;
-    String teacher_AcademicLevel_;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,30 +41,27 @@ public class AddingTeacher extends AppCompatActivity {
         teacher_living_editText = findViewById(R.id.teacher_living_editText);
         teacher_phone_editText = findViewById(R.id.teacher_phone_editText);
         teacher_password_editText = findViewById(R.id.teacher_password_editText);
-//        teacher_AcademicLevel_editText = findViewById(R.id.teacher_AcademicLevel_editText);
 
         Button addTeacherButton = findViewById(R.id.add_teacher_button);
 
         addTeacherButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                teacher_name_ = teacher_name_editText.getText().toString();
-                teacher_living_ = teacher_living_editText.getText().toString();
-                teacher_phone_ = teacher_phone_editText.getText().toString();
-                teacher_password_ = teacher_password_editText.getText().toString();
-//                teacher_AcademicLevel_ = teacher_AcademicLevel_editText.getText().toString();
-
                 AddTeacher();
-                Intent i = new Intent(getApplicationContext(), Teach.class);
-                startActivity(i);
             }
         });
     }
 
     private void AddTeacher() {
+
+        teacher_name_ = teacher_name_editText.getText().toString();
+        teacher_living_ = teacher_living_editText.getText().toString();
+        teacher_phone_ = teacher_phone_editText.getText().toString();
+        teacher_password_ = teacher_password_editText.getText().toString();
+
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,  URLs.AddTeacher + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&Name=" + teacher_name_ , null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddTeacher + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&Name=" + teacher_name_  + "&Password=" + teacher_password_
+                + "&PhoneNumber=" + teacher_phone_ + "&Address=" + teacher_living_ + "&UserType=" + 2 + "&Enabled=" + 1, null,
                 (JSONObject response) -> {
                     try {
                         String name = response.getString("Name");
@@ -91,7 +87,7 @@ public class AddingTeacher extends AppCompatActivity {
 //        viewDialog.hideDialog();
         Snackbar.make(findViewById(android.R.id.content), "Sign in Failed", Snackbar.LENGTH_LONG)
                 .setAction("Try Again", v -> {
-                    AddTeacher(PhoneNumber, Password);
+                    AddTeacher();
                 }).show();
     }
 
