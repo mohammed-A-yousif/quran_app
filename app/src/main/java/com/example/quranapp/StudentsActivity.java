@@ -10,32 +10,46 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Students extends AppCompatActivity implements MyAdapter.MyAdapterListener {
-    private MyAdapter adapter;
+public class StudentsActivity extends AppCompatActivity implements StudentAdapter.StudentAdapterListener {
 
-    // url to fetch contacts json
-//    private static final String URL = "https://api.androidhive.info/json/contacts.json";
+    private StudentAdapter adapter;
+    private JSONArray jsonArray;
+    List<Student> listItems ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.students_activity);
+
         Toolbar toolbar = findViewById(R.id.students_toolbar);
         setSupportActionBar(toolbar);
+
         RecyclerView recyclerView = findViewById(R.id.students_recyclerView);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Teacher> listItems = new ArrayList<>();
+        listItems = new ArrayList<>();
+
         FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
         studentsFAB.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -45,16 +59,53 @@ public class Students extends AppCompatActivity implements MyAdapter.MyAdapterLi
             }
         });
 
-        for (int i = 0; i <10; i++) {
-            Teacher listItem = new Teacher("Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
-            listItems.add(listItem);
-        }
-        adapter = new MyAdapter(listItems, this);
+
+        adapter = new StudentAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
 
         // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
+
+        getStudents();
+    }
+
+
+    public void getStudents(){
+        // viewDialog.showDialog();
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetStudents, response -> {
+            try {
+                jsonArray = new JSONArray(response);
+                for (int i = 0; i < jsonArray.length(); i ++){
+                    JSONObject StudentObject = jsonArray.getJSONObject(i);
+                    String Name = StudentObject.getString("Name");
+                    String PhoneNumber = StudentObject.getString("PhoneNumber");
+                    String Date = StudentObject.getString("CreatedAt");
+                    Student listItem = new Student(Name, PhoneNumber, Date);
+                    listItems.add(listItem);
+                }
+
+                adapter.notifyDataSetChanged();
+                Log.d("res", jsonArray.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+//                viewDialog.hideDialog();
+                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
+                        .setAction("Retry", v -> getStudents()).show();
+            }
+
+        }, error -> {
+            error.printStackTrace();
+//            viewDialog.hideDialog();
+            Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
+                    .setAction("Retry", v -> getStudents()).show();
+        });
+
+
+        requestQueue.add(stringRequest);
+
     }
 
     @Override
@@ -88,8 +139,8 @@ public class Students extends AppCompatActivity implements MyAdapter.MyAdapterLi
     }
 
     @Override
-    public void onContactSelected(Teacher teacher) {
-        Toast.makeText(getApplicationContext(), "Selected: " + teacher.getName() + ", " + teacher.getPhone(), Toast.LENGTH_LONG).show();
+    public void onStudentSelected(Student student) {
+        Toast.makeText(getApplicationContext(), "Selected: " + student.getName() + ", " + student.getPhone(), Toast.LENGTH_LONG).show();
     }
 }
 

@@ -50,7 +50,7 @@
 
         <!-- students activity -->
         <activity
-            android:name=".Students"
+            android:name=".StudentsActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 

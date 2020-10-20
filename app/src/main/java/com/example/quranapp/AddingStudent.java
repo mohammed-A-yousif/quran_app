@@ -27,7 +27,7 @@ adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         addStudentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Students.class);
+                Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
                 startActivity(i);
             }
         });

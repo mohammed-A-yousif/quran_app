@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:theme="@style/AppThemeSplash"
-    tools:context=".Students">
+    tools:context=".StudentsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/students_appBarLayout"
