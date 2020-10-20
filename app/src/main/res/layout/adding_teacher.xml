@@ -62,26 +62,26 @@
                 android:textStyle="bold"/>
 
             <EditText
-                android:id="@+id/teacher_work_editText"
+                android:id="@+id/teacher_password_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginRight="20dp"
-                android:hint="مكان العمل"
+                android:hint="كلمة السر "
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <EditText
-                android:id="@+id/teacher_AcademicLevel_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="20dp"
-                android:hint="مستوى الدراسي"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+<!--            <EditText-->
+<!--                android:id="@+id/teacher_AcademicLevel_editText"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:hint="مستوى الدراسي"-->
+<!--                android:textSize="16sp"-->
+<!--                android:textStyle="bold" />-->
 
             <Button
                 android:id="@+id/add_teacher_button"
