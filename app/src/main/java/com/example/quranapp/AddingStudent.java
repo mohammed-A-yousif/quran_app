@@ -81,7 +81,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         student_AcademicLevel_ = student_living_editText.getText().toString();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddStudent + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&IdAdmin=" + 1  + "&Name=" + student_name_  + "&Password=" + student_password_
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddStudent + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&IdTeacher=" + 1  + "&Name=" + student_name_  + "&Password=" + student_password_
                 + "&PhoneNumber=" + student_phone_ + "&Address=" + student_living_ + "&EductionLevel=" + student_AcademicLevel_ + "&WorkPlace=" + student_work_  + "&UserType=" + 3 + "&Enabled=" + 1, null,
                 (JSONObject response) -> {
                     try {
