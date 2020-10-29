@@ -80,6 +80,17 @@
                 android:textStyle="bold"/>
 
             <EditText
+                android:id="@+id/student_password_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="20dp"
+                android:hint="كلمة السر "
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <EditText
                 android:id="@+id/student_work_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
