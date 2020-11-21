@@ -2,7 +2,8 @@ package com.example.quranapp;
 
 public class URLs {
 
-    public  static String BaseUrl = "http://10.0.2.2:5000/";
+//    public  static String BaseUrl = "http://10.0.2.2:5000/";
+    public  static String BaseUrl = "https://aletgan-api.herokuapp.com/";
 
     public static String Login = BaseUrl + "admin_login/";
     public static String AddTeacher = BaseUrl + "teacher_register/";
