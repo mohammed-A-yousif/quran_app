@@ -2,6 +2,7 @@ package com.example.quranapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,8 @@ public class Login  extends AppCompatActivity {
     String Password;
 
     ViewDialog viewDialog;
+    EditText phoneEditText;
+    EditText passEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,10 @@ public class Login  extends AppCompatActivity {
 
         viewDialog = new ViewDialog(this);
 
-        EditText phoneEditText = (EditText) findViewById(R.id.phone_ET);
-        EditText passEditText = (EditText) findViewById(R.id.pass_ET);
+         phoneEditText = (EditText) findViewById(R.id.input_phone);
+         passEditText = (EditText) findViewById(R.id.input_password);
 
-        Button loginButton = (Button) findViewById(R.id.button_login);
+        Button loginButton = (Button) findViewById(R.id.btn_signin);
 
         loginButton.setOnClickListener(v -> {
             PhoneNumber = phoneEditText.getText().toString();
@@ -54,6 +57,9 @@ public class Login  extends AppCompatActivity {
     }
 
     private void Sigin(String phoneNumber, String password) {
+        if(!validate()){
+            return;
+        }
         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,  URLs.Login + "?PhoneNumber=" + phoneNumber + "&Password=" + password , null,
@@ -92,6 +98,26 @@ public class Login  extends AppCompatActivity {
                 .show();
         startActivity(new Intent(this, Control.class));
         finish();
+    }
+
+    private boolean validate() {
+        boolean valid = true;
+
+        if(PhoneNumber == null && !Patterns.PHONE.matcher(PhoneNumber).matches()){
+            phoneEditText.setError("Enter a valid phone number");
+            valid = false;
+        } else {
+            phoneEditText.setError(null);
+        }
+
+        if (Password == null && Password.length() < 2 && Password.length() > 4){
+            passEditText.setError("Between 4 and 10 alphanumeric characters");
+            valid = false;
+        } else {
+            passEditText.setError(null);
+        }
+
+        return valid;
     }
 
 }

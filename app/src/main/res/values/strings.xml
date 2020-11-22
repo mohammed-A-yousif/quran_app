@@ -7,14 +7,6 @@
     <string name="todo">TODO</string>
     <string name="phone_number">رقم الهاتف</string>
     <string name="password">كلمة السر</string>
-    <string name="enter">تسجيل الدخول</string>
+    <string name="login">تسجيل الدخول</string>
 
-    <string-array name="Teachers">
-        <item>محمد أحمد</item>
-        <item>محمد أحمد</item>
-        <item>محمد أحمد</item>
-        <item>محمد أحمد</item>
-        <item>محمد أحمد</item>
-
-    </string-array>
 </resources>
