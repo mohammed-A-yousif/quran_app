@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.203" />
 
     <TextView
-        android:id="@+id/btn_purchase_total"
+        android:id="@+id/text_user_name"
         android:layout_width="296dp"
         android:layout_height="49dp"
         android:layout_centerInParent="true"
@@ -54,7 +54,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/text_control"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/text_control"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.275" />
