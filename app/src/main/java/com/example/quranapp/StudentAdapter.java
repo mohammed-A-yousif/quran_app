@@ -53,7 +53,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
             textViewName = itemView.findViewById(R.id.teacher_name_textView);
             textViewPhone = itemView.findViewById(R.id.phone_num_textView);
-            textViewDate = itemView.findViewById(R.id.date_textView);
+//            textViewDate = itemView.findViewById(R.id.date_textView);
         }
     }
 

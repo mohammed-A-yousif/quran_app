@@ -23,7 +23,7 @@ public class Control extends AppCompatActivity {
 
         TextView UserName = findViewById(R.id.text_user_name);
         String admin = SharedPrefManager.getInstance(this).getAdmin().getName();
-        UserName.setText("مرحبا ! " + admin);
+        UserName.setText("مرحبا بك ! " + admin);
 
         teach_cardView.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), TeacherActivity.class);

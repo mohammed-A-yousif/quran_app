@@ -34,7 +34,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         Teacher listItem = listItems.get(position);
         holder.textViewName.setText(listItem.getName());
         holder.textViewPhone.setText(listItem.getPhone());
-        holder.textViewDate.setText(listItem.getDate());
+//        holder.textViewDate.setText(listItem.getDate());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
 
             textViewName = itemView.findViewById(R.id.teacher_name_textView);
             textViewPhone = itemView.findViewById(R.id.phone_num_textView);
-            textViewDate = itemView.findViewById(R.id.date_textView);
+//            textViewDate = itemView.findViewById(R.id.date_textView);
         }
     }
 

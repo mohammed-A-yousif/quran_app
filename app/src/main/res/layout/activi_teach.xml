@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:theme="@style/AppThemeSplash"
     tools:context=".TeacherActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,8 +20,11 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_teach"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/rounded_text" />
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="?attr/colorPrimary"
+            android:layout_height="?attr/actionBarSize" />
+<!--            android:background="@drawable/rounded_text" />-->
 
     </com.google.android.material.appbar.AppBarLayout>
 
