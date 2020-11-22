@@ -44,12 +44,7 @@ public class AddingTeacher extends AppCompatActivity {
 
         Button addTeacherButton = findViewById(R.id.add_teacher_button);
 
-        addTeacherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddTeacher();
-            }
-        });
+        addTeacherButton.setOnClickListener(v -> AddTeacher());
     }
 
     private void AddTeacher() {
