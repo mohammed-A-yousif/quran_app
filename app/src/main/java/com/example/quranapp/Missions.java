@@ -31,7 +31,7 @@ public class Missions extends AppCompatActivity implements MissionsAdapter.Missi
         List<Teacher> listItems = new ArrayList<>();
 
         for (int i = 0; i <10; i++) {
-            Teacher listItem = new Teacher("Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
+            Teacher listItem = new Teacher( i, "Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
             listItems.add(listItem);
         }
         adapter = new MissionsAdapter(listItems, this);

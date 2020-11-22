@@ -82,9 +82,10 @@ public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAd
                 for (int i = 0; i < jsonArray.length(); i ++){
                     JSONObject TeacherObject = jsonArray.getJSONObject(i);
                     String Name = TeacherObject.getString("Name");
+                    int Id = TeacherObject.getInt("IdTeacher");
                     String PhoneNumber = TeacherObject.getString("PhoneNumber");
                     String Date = TeacherObject.getString("CreatedAt");
-                    Teacher listItem = new Teacher(Name, PhoneNumber, Date);
+                    Teacher listItem = new Teacher(Id, Name, PhoneNumber, Date);
                     listItems.add(listItem);
                 }
 

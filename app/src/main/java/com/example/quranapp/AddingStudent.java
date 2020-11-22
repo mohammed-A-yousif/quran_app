@@ -1,6 +1,7 @@
 package com.example.quranapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,7 +48,12 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
     ViewDialog viewDialog;
     private JSONArray jsonArray;
     List<Teacher> listItems ;
-    List<String> Teachers;
+
+    private int IdTeacher;
+    Spinner addStudentSpinner;
+
+    private ArrayList<String> TeacherArray;
+    private List<Teacher> TeacherList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +68,28 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         student_AcademicLevel_editText = findViewById(R.id.student_AcademicLevel_editText);
 
         Button addStudentButton = findViewById(R.id.add_student_button);
-        Spinner addStudentSpinner = findViewById(R.id.add_student_spinner);
+        addStudentSpinner = findViewById(R.id.add_student_spinner);
 
         viewDialog = new ViewDialog(this);
         listItems = new ArrayList<>();
 
-        Teachers = new ArrayList<String>();
-
+        TeacherArray = new ArrayList<>();
         GetTeacher();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Teachers);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        addStudentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(Color.BLACK);
+                IdTeacher = listItems.get(position).getId();
 
-        addStudentSpinner.setAdapter(adapter);
-        addStudentSpinner.setOnItemSelectedListener(this);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Snackbar.make(findViewById(android.R.id.content), "Please Choose Teacher !!! ", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
 
         addStudentButton.setOnClickListener(v -> {
@@ -96,13 +111,16 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
                     JSONObject TeacherObject = jsonArray.getJSONObject(i);
                     String Name = TeacherObject.getString("Name");
                     String PhoneNumber = TeacherObject.getString("PhoneNumber");
-                    int IdTeacher = TeacherObject.getInt("IdTeacher");
+                    int Id = TeacherObject.getInt("IdTeacher");
                     String Date = TeacherObject.getString("CreatedAt");
-                    Teacher listItem = new Teacher(Name, PhoneNumber, Date);
+                    Teacher listItem = new Teacher(Id ,Name, PhoneNumber, Date);
                     listItems.add(listItem);
+                    TeacherArray.add(listItem.getName());
                 }
 
-
+                addStudentSpinner.setAdapter(new ArrayAdapter<>(AddingStudent.this, R.layout.spinner_item, TeacherArray));
+                Snackbar.make(findViewById(android.R.id.content), "Teacher got successfully", Snackbar.LENGTH_LONG)
+                        .show();
                 viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 
@@ -136,7 +154,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         student_AcademicLevel_ = student_living_editText.getText().toString();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddStudent + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&IdTeacher=" + 1  + "&Name=" + student_name_  + "&Password=" + student_password_
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddStudent + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&IdTeacher=" + IdTeacher  + "&Name=" + student_name_  + "&Password=" + student_password_
                 + "&PhoneNumber=" + student_phone_ + "&Address=" + student_living_ + "&EductionLevel=" + student_AcademicLevel_ + "&WorkPlace=" + student_work_  + "&UserType=" + 3 + "&Enabled=" + 1, null,
                 (JSONObject response) -> {
                     try {
