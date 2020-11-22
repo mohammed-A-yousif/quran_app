@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
-    android:background="#557571">
+    android:background="@android:color/white"
+    tools:context=".SplashScreen">
 
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#557571"
+        android:background="@android:color/white"
         android:foregroundGravity="center"
         android:src="@drawable/img_splash"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:gravity="bottom|center"
         android:text="مركز الإتقان لتحفيظ القرآن"
-        android:textStyle="italic"
-        android:textColor="#7BDDFF"
+        android:textColor="@color/design_default_color_on_secondary"
         android:textSize="16sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
