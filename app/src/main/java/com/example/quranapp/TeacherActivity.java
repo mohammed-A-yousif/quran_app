@@ -34,34 +34,33 @@ public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAd
 
     private MyAdapter adapter;
     private JSONArray jsonArray;
+
     List<Teacher> listItems ;
+    ViewDialog viewDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activi_teach);
+
         Toolbar toolbar = findViewById(R.id.toolbar_teach);
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
         recyclerView.setHasFixedSize(true);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        viewDialog = new ViewDialog(this);
 
         listItems = new ArrayList<>();
         FloatingActionButton teachFAB = findViewById(R.id.teacher_fab);
 
-        teachFAB.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
-                startActivity(i);
-            }
+        teachFAB.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
+            startActivity(i);
         });
 
-//        for (int i = 0; i <10; i++) {
-//            Teacher listItem = new Teacher("Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
-//            listItems.add(listItem);
-//        }
+
 
         adapter = new MyAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
@@ -75,7 +74,7 @@ public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAd
 
 
     public void GetTeacher(){
-//        viewDialog.showDialog();
+        viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetTeachers, response -> {
             try {
@@ -90,18 +89,19 @@ public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAd
                 }
 
                 adapter.notifyDataSetChanged();
+                viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
-//                viewDialog.hideDialog();
+                viewDialog.hideDialog();
                 Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
                         .setAction("Retry", v -> GetTeacher()).show();
             }
 
         }, error -> {
             error.printStackTrace();
-//            viewDialog.hideDialog();
+            viewDialog.hideDialog();
             Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
                     .setAction("Retry", v -> GetTeacher()).show();
         });

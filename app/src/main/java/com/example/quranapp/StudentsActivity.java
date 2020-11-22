@@ -34,7 +34,9 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
 
     private StudentAdapter adapter;
     private JSONArray jsonArray;
+
     List<Student> listItems ;
+    ViewDialog viewDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
 
         Toolbar toolbar = findViewById(R.id.students_toolbar);
         setSupportActionBar(toolbar);
+        viewDialog = new ViewDialog(this);
 
         RecyclerView recyclerView = findViewById(R.id.students_recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -51,12 +54,9 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
         listItems = new ArrayList<>();
 
         FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
-        studentsFAB.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), AddingStudent.class);
-                startActivity(i);
-            }
+        studentsFAB.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), AddingStudent.class);
+            startActivity(i);
         });
 
 
@@ -72,7 +72,7 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
 
 
     public void getStudents(){
-        // viewDialog.showDialog();
+         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetStudents, response -> {
             try {
@@ -87,18 +87,19 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
                 }
 
                 adapter.notifyDataSetChanged();
+                viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
-//                viewDialog.hideDialog();
+                viewDialog.hideDialog();
                 Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
                         .setAction("Retry", v -> getStudents()).show();
             }
 
         }, error -> {
             error.printStackTrace();
-//            viewDialog.hideDialog();
+            viewDialog.hideDialog();
             Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
                     .setAction("Retry", v -> getStudents()).show();
         });

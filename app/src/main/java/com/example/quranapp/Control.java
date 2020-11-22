@@ -19,36 +19,24 @@ public class Control extends AppCompatActivity {
         CardView review_cardView = findViewById(R.id.student_review_cardView);
 
 
-        teach_cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), TeacherActivity.class);
-                startActivity(i);
-            }
+        teach_cardView.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), TeacherActivity.class);
+            startActivity(i);
         });
 
-        students_cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
-                startActivity(i);
-            }
+        students_cardView.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
+            startActivity(i);
         });
 
-        missions_cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Missions.class);
-                startActivity(i);
-            }
+        missions_cardView.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), Missions.class);
+            startActivity(i);
         });
 
-        review_cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Review.class);
-                startActivity(i);
-            }
+        review_cardView.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), Review.class);
+            startActivity(i);
         });
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,11 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddingStudent extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -37,6 +43,11 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
     String student_work_;
     String student_AcademicLevel_;
 
+    ViewDialog viewDialog;
+    private JSONArray jsonArray;
+    List<Teacher> listItems ;
+    List<String> Teachers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,22 +63,66 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         Button addStudentButton = findViewById(R.id.add_student_button);
         Spinner addStudentSpinner = findViewById(R.id.add_student_spinner);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
-                (this, R.array.Teachers, android.R.layout.simple_spinner_item);
+        viewDialog = new ViewDialog(this);
+        listItems = new ArrayList<>();
+
+        Teachers = new ArrayList<String>();
+
+        GetTeacher();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, Teachers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         addStudentSpinner.setAdapter(adapter);
         addStudentSpinner.setOnItemSelectedListener(this);
 
 
-        addStudentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        addStudentButton.setOnClickListener(v -> {
 
-                addStudent();
-                Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
-                startActivity(i);
-            }
+            addStudent();
+            Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
+            startActivity(i);
         });
+    }
+
+
+    public void GetTeacher(){
+        viewDialog.showDialog();
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetTeachers, response -> {
+            try {
+                jsonArray = new JSONArray(response);
+                for (int i = 0; i < jsonArray.length(); i ++){
+                    JSONObject TeacherObject = jsonArray.getJSONObject(i);
+                    String Name = TeacherObject.getString("Name");
+                    String PhoneNumber = TeacherObject.getString("PhoneNumber");
+                    int IdTeacher = TeacherObject.getInt("IdTeacher");
+                    String Date = TeacherObject.getString("CreatedAt");
+                    Teacher listItem = new Teacher(Name, PhoneNumber, Date);
+                    listItems.add(listItem);
+                }
+
+
+                viewDialog.hideDialog();
+                Log.d("res", jsonArray.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                viewDialog.hideDialog();
+                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
+                        .setAction("Retry", v -> GetTeacher()).show();
+            }
+
+        }, error -> {
+            error.printStackTrace();
+            viewDialog.hideDialog();
+            Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
+                    .setAction("Retry", v -> GetTeacher()).show();
+        });
+
+
+        requestQueue.add(stringRequest);
+
     }
 
 
@@ -116,7 +171,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
     }
 
     private void onInsertFailed() {
-//        viewDialog.hideDialog();
+        viewDialog.hideDialog();
         Snackbar.make(findViewById(android.R.id.content), "Sign in Failed", Snackbar.LENGTH_LONG)
                 .setAction("Try Again", v -> {
                     addStudent();
@@ -124,7 +179,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
     }
 
     private void onInsertSuccess() {
-//        viewDialog.hideDialog();
+        viewDialog.hideDialog();
         Snackbar.make(findViewById(android.R.id.content), "Sign in Successfully", Snackbar.LENGTH_LONG)
                 .show();
         startActivity(new Intent(this, StudentsActivity.class));
