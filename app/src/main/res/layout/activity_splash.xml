@@ -19,14 +19,15 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.322"
+        android:contentDescription="TODO" />
 
     <TextView
         android:id="@+id/text_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom|center"
-        android:text="مركز الإتقان لتحفيظ القرآن"
+        android:text="@string/splash_text"
         android:textColor="@color/design_default_color_on_secondary"
         android:textSize="16sp"
         android:textStyle="bold"

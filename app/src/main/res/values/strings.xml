@@ -8,5 +8,6 @@
     <string name="phone_number">رقم الهاتف</string>
     <string name="password">كلمة السر</string>
     <string name="login">تسجيل الدخول</string>
+    <string name="splash_text">مركز الإتقان لتحفيظ القرآن</string>
 
 </resources>
