@@ -35,7 +35,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         Student listItem = listItems.get(position);
         holder.textViewName.setText(listItem.getName());
         holder.textViewPhone.setText(listItem.getPhone());
-        holder.textViewDate.setText(listItem.getDate());
+//        holder.textViewDate.setText(listItem.getDate());
     }
 
     @Override
