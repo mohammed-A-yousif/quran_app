@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Window;
-
 import com.airbnb.lottie.LottieAnimationView;
+
 
 public class ViewDialog {
 
@@ -34,7 +34,6 @@ public class ViewDialog {
         mLottieAnimationView = dialog.findViewById(R.id.lottie_animation_view);
         dialog.show();
     }
-
 
     public void hideDialog(){
         dialog.dismiss();

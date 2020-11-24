@@ -104,7 +104,6 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
                     .setAction("Retry", v -> getStudents()).show();
         });
 
-
         requestQueue.add(stringRequest);
 
     }

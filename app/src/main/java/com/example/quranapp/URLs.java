@@ -14,7 +14,6 @@ public class URLs {
 
     public static String AddStudent = BaseUrl + "student_register/";
 
-
     public static String getBaseUrl() {
         return BaseUrl;
     }
