@@ -55,7 +55,7 @@ public class AddingTeacher extends AppCompatActivity {
         teacher_password_ = teacher_password_editText.getText().toString();
 
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddTeacher + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&Name=" + teacher_name_  + "&Password=" + teacher_password_
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URLs.AddTeacher + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&Name=" + teacher_name_ + "&Password=" + teacher_password_
                 + "&PhoneNumber=" + teacher_phone_ + "&Address=" + teacher_living_ + "&UserType=" + 2 + "&Enabled=" + 1, null,
                 (JSONObject response) -> {
                     try {
@@ -69,9 +69,9 @@ public class AddingTeacher extends AppCompatActivity {
                         onInsertFailed();
                     }
 
-                    Log.d("String Response : ", ""+  response.toString());
+                    Log.d("String Response : ", "" + response.toString());
                     Log.d("name", String.valueOf(SharedPrefManager.getInstance(this).isLoggedIn()));
-                }, error -> Log.d("Error getting response", "" +error));
+                }, error -> Log.d("Error getting response", "" + error));
 
         requestQueue.add(jsonObjectRequest);
         Log.d("rs", "" + jsonObjectRequest);

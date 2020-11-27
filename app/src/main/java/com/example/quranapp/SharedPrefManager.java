@@ -37,7 +37,6 @@ public class SharedPrefManager {
         editor.apply();
     }
 
-
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_PHONENUMBER, null) != null;
@@ -50,7 +49,7 @@ public class SharedPrefManager {
                 sharedPreferences.getInt(KEY_USERTYPE, -1),
                 sharedPreferences.getString(KEY_NAME, null),
                 sharedPreferences.getString(KEY_PHONENUMBER, null)
-                );
+        );
     }
 
     public void logout() {
