@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -74,7 +73,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         listItems = new ArrayList<>();
 
         TeacherArray = new ArrayList<>();
-        GetTeacher();
+//        GetTeacher();
 
         addStudentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -94,7 +93,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
 
         addStudentButton.setOnClickListener(v -> {
 
-            addStudent();
+//            addStudent();
             Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
             startActivity(i);
         });
@@ -118,7 +117,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
                     TeacherArray.add(listItem.getName());
                 }
 
-                addStudentSpinner.setAdapter(new ArrayAdapter<>(AddingStudent.this, R.layout.spinner_item, TeacherArray));
+                addStudentSpinner.setAdapter(new ArrayAdapter<>(com.example.quranapp.AddingStudent.this, R.layout.spinner_item, TeacherArray));
                 Snackbar.make(findViewById(android.R.id.content), "Teacher got successfully", Snackbar.LENGTH_LONG)
                         .show();
                 viewDialog.hideDialog();
