@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:theme="@style/calenderView"
-    android:background="#557571">
+    android:background="#D8D7D7">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/review_cardView"
@@ -32,7 +32,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FE7171"
+                android:background="#9771FE"
                 android:orientation="vertical">
 
                 <TextView
@@ -68,17 +68,19 @@
 
             <Button
                 android:id="@+id/add_review_textButton"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="8dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/round_corner"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="عرض المراجعات"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
         </LinearLayout>

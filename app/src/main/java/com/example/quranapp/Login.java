@@ -63,22 +63,25 @@ public class Login extends AppCompatActivity {
         }
         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URLs.Login + "?PhoneNumber=" + phoneNumber + "&Password=" + password, null,
-                (JSONObject response) -> {
-                    try {
-                        String name = response.getString("Name");
-                        Admin admin = new Admin(response.getInt("IdAdmin"), response.getInt("UserType"), response.getString("Name"), response.getString("PhoneNumber"));
-                        SharedPrefManager.getInstance(getApplicationContext()).adminLogin(admin);
-                        onSiginSuccess();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                URLs.Login + "?PhoneNumber=" + phoneNumber + "&Password=" + password,
+                null, (JSONObject response) -> {
+            try {
+//                String name = response.getString("Name");
+                Admin admin = new Admin(response.getInt("IdAdmin"), response.getInt("UserType"),
+                        response.getString("Name"), response.getString("PhoneNumber"));
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        onSiginFailed();
-                    }
+                SharedPrefManager.getInstance(getApplicationContext()).adminLogin(admin);
+                onSiginSuccess();
 
-                    Log.d("String Response : ", "" + response.toString());
-                    Log.d("name", String.valueOf(SharedPrefManager.getInstance(this).isLoggedIn()));
-                }, error -> Log.d("Error getting response", "" + error));
+            } catch (JSONException e) {
+                e.printStackTrace();
+                onSiginFailed();
+            }
+
+            Log.d("String Response : ", "" + response.toString());
+            Log.d("name", String.valueOf(SharedPrefManager.getInstance(this).isLoggedIn()));
+        }, error -> Log.d("Error getting response", "" + error));
 
         requestQueue.add(jsonObjectRequest);
         Log.d("rs", "" + jsonObjectRequest);

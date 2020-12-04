@@ -73,7 +73,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         listItems = new ArrayList<>();
 
         TeacherArray = new ArrayList<>();
-//        GetTeacher();
+        GetTeacher();
 
         addStudentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -93,7 +93,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
 
         addStudentButton.setOnClickListener(v -> {
 
-//            addStudent();
+            addStudent();
             Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
             startActivity(i);
         });
