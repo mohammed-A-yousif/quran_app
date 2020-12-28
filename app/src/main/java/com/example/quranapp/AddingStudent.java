@@ -189,7 +189,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
 
     private void onInsertFailed() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "Sign in Failed", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "adding task failed", Snackbar.LENGTH_LONG)
                 .setAction("Try Again", v -> {
                     addStudent();
                 }).show();
@@ -197,7 +197,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
 
     private void onInsertSuccess() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "Sign in Successfully", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "adding task done", Snackbar.LENGTH_LONG)
                 .show();
         startActivity(new Intent(this, StudentsActivity.class));
         finish();
