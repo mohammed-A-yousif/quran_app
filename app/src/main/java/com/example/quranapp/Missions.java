@@ -9,37 +9,87 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Missions extends AppCompatActivity implements MissionsAdapter.MissionsAdapterListener {
     private MissionsAdapter adapter;
+    private JSONArray jsonArray;
+    List<Task> listItems ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.missions_activity);
         Toolbar toolbar = findViewById(R.id.missions_toolbar);
+
         setSupportActionBar(toolbar);
         RecyclerView recyclerView = findViewById(R.id.missions_recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Teacher> listItems = new ArrayList<>();
 
-        for (int i = 0; i <10; i++) {
-            Teacher listItem = new Teacher( i, "Mohammed Ahmed" + (i + 1), "0909041441", "9/26/2020");
-            listItems.add(listItem);
-        }
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listItems = new ArrayList<>();
+
         adapter = new MissionsAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
 
+        getTasks();
         // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
+    }
+
+    private void getTasks() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetSTasks  , response -> {
+            try {
+                jsonArray = new JSONArray(response);
+                for (int i = 0; i < jsonArray.length(); i ++){
+                    JSONObject TaskObject = jsonArray.getJSONObject(i);
+                    int Id = TaskObject.getInt("IdTask");
+                    String TaskName = TaskObject.getString("TaskName");
+                    String TaskDec = TaskObject.getString("TaskDec");
+                    String CreatedAt = TaskObject.getString("CreatedAt");
+                    Task listItem = new Task(Id,TaskName, TaskDec, CreatedAt);
+                    listItems.add(listItem);
+                }
+
+                adapter.notifyDataSetChanged();
+//                viewDialog.hideDialog();
+                Log.d("res", jsonArray.toString());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+//                viewDialog.hideDialog();
+                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Students " + e , Snackbar.LENGTH_LONG)
+                        .setAction("Retry", v -> getTasks()).show();
+            }
+
+        }, error -> {
+            error.printStackTrace();
+//            viewDialog.hideDialog();
+            Snackbar.make(findViewById(android.R.id.content),"Couldn't get Students " + error , Snackbar.LENGTH_LONG)
+                    .setAction("Retry", v -> getTasks()).show();
+        });
+
+        requestQueue.add(stringRequest);
+
     }
 
     @Override

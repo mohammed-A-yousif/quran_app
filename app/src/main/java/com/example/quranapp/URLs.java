@@ -11,6 +11,7 @@ public class URLs {
 
     public static String GetTeachers = BaseUrl + "teachers/";
     public static String GetStudents = BaseUrl + "students/";
+    public static String GetSTasks = BaseUrl + "tasks/";
 
     public static String AddStudent = BaseUrl + "student_register/";
 
