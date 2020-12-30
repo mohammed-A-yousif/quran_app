@@ -1,15 +1,20 @@
-package com.example.quranapp;
+package com.example.quranapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-public class Control extends AppCompatActivity {
+import com.example.quranapp.Missions;
+import com.example.quranapp.R;
+import com.example.quranapp.Review;
+import com.example.quranapp.SharedPrefManager;
+import com.example.quranapp.StudentsActivity;
+
+public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

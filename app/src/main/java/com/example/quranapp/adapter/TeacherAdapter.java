@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,14 +10,17 @@ import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranapp.R;
+import com.example.quranapp.Teacher;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements Filterable {
+public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHolder> implements Filterable {
     private List<Teacher> listItems;
     private List<Teacher> listItemsFiltered;
 
-    public MyAdapter(List<Teacher> listItems, Context context) {
+    public TeacherAdapter(List<Teacher> listItems, Context context) {
         this.listItems = listItems;
         listItemsFiltered = new ArrayList<>(listItems);
     }
@@ -25,16 +28,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row_teach, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_teacher, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Teacher listItem = listItems.get(position);
-        holder.textViewName.setText(listItem.getName());
-        holder.textViewPhone.setText(listItem.getPhone());
-//        holder.textViewDate.setText(listItem.getDate());
+        holder.textTeacherName.setText(listItem.getName());
+        holder.textTeacherAddress.setText(listItem.getName());
+        holder.textTeacherPhoneNumber.setText(listItem.getPhone());
+        holder.timestamp.setText(listItem.getDate());
     }
 
     @Override
@@ -43,25 +47,28 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewName;
-        public TextView textViewPhone;
-        public TextView textViewDate;
+        public TextView textTeacherName;
+        public TextView textTeacherAddress;
+        public TextView textTeacherPhoneNumber;
+        public TextView timestamp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewName = itemView.findViewById(R.id.teacher_name_textView);
-            textViewPhone = itemView.findViewById(R.id.phone_num_textView);
+            textTeacherName = itemView.findViewById(R.id.textTeacherName);
+            textTeacherAddress = itemView.findViewById(R.id.textTeacherAddress);
+            textTeacherPhoneNumber = itemView.findViewById(R.id.textTeacherPhoneNumber);
+            timestamp = itemView.findViewById(R.id.timestamp);
 //            textViewDate = itemView.findViewById(R.id.date_textView);
         }
     }
 
     @Override
     public Filter getFilter() {
-        return contactFilter;
+        return teacherFilter;
     }
 
-    private Filter contactFilter = new Filter() {
+    private Filter teacherFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Teacher> filteredList =new ArrayList<>();
@@ -89,7 +96,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
 
         }
     };
-    public interface MyAdapterListener {
-        void onContactSelected(Teacher teacher);
+    public interface TeacherAdapterListener {
+        void onTeacherSelected(Teacher teacher);
     }
 }

@@ -31,13 +31,13 @@
 
         <!-- control activity -->
         <activity
-            android:name=".Control"
+            android:name=".activity.DashboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- teach activity -->
         <activity
-            android:name=".TeacherActivity"
+            android:name=".activity.TeacherActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 

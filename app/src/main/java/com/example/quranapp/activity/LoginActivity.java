@@ -2,7 +2,6 @@ package com.example.quranapp.activity;
 
 import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
@@ -15,7 +14,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.quranapp.Admin;
-import com.example.quranapp.Control;
 import com.example.quranapp.R;
 import com.example.quranapp.SharedPrefManager;
 import com.example.quranapp.URLs;
@@ -27,8 +25,6 @@ import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.example.quranapp.URLs.BaseUrl;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            startActivity(new Intent(this, Control.class));
+            startActivity(new Intent(this, DashboardActivity.class));
             return;
         }
 
@@ -99,17 +95,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onSiginFailed() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "Sign in Failed", Snackbar.LENGTH_LONG)
-                .setAction("Try Again", v -> {
+        Snackbar.make(findViewById(android.R.id.content), "فشل تسجيل الدخول", Snackbar.LENGTH_LONG)
+                .setAction("محاولة مرة اخري", v -> {
                     Sigin(PhoneNumber, Password);
                 }).show();
     }
 
     private void onSiginSuccess() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "Sign in Successfully", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "تم تسجيل الدخول بنجاح", Snackbar.LENGTH_LONG)
                 .show();
-        startActivity(new Intent(this, Control.class));
+        startActivity(new Intent(this, DashboardActivity.class));
         finish();
     }
 
@@ -117,14 +113,14 @@ public class LoginActivity extends AppCompatActivity {
         boolean valid = true;
 
         if (PhoneNumber.length() == 0 && !Patterns.PHONE.matcher(phoneEditText.getText().toString()).matches()) {
-            phoneEditText.setError("Enter a valid phone number");
+            phoneEditText.setError("الرجاء ادخال رقم هاتف صالح");
             valid = false;
         } else {
             phoneEditText.setError(null);
         }
 
-        if (Password.length() > 0 && Password.length() < 4  &&!isValidPassword(Password)){
-            passEditText.setError("Between 4 and 10 alphanumeric characters");
+        if (Password.length()  == 0  && Password.length() < 4  &&!isValidPassword(Password)){
+            passEditText.setError("كلمة السر يجب ان تحتوي علي اربعة حروف علي الاقل ");
             valid = false;
         } else {
             passEditText.setError(null);

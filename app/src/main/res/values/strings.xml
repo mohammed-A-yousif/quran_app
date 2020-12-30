@@ -11,5 +11,13 @@
     <string name="splash_text">مركز الإتقان لتحفيظ القرآن</string>
     <string name="welcome">اهلا و سهلا</string>
     <string name="back_to_your_dashbaord"> في مركز الاتقان لتحفيظ القران</string>
+    <string name="students">الدارسين</string>
+    <string name="teacher">الشيوخ</string>
+    <string name="review_student">مراجعات الدارسين</string>
+    <string name="tasks_students">مهام الدارسين</string>
+    <string name="teacherPhoneNumber">0912836780</string>
+    <string name="teacherName">Ahmed K Madani</string>
+    <string name="teacherAddress">Khartoum - Sudan</string>
+    <string name="createdDate">Now</string>
 
 </resources>

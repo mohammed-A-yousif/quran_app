@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -13,13 +13,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quranapp.AddingTeacher;
+import com.example.quranapp.R;
+import com.example.quranapp.Teacher;
+import com.example.quranapp.adapter.TeacherAdapter;
+import com.example.quranapp.URLs;
+import com.example.quranapp.ViewDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,9 +35,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAdapterListener {
+public class TeacherActivity extends AppCompatActivity implements TeacherAdapter.TeacherAdapterListener {
 
-    private MyAdapter adapter;
+    private TeacherAdapter adapter;
     private JSONArray jsonArray;
 
     List<Teacher> listItems ;
@@ -41,32 +46,36 @@ public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAd
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activi_teach);
+        setContentView(R.layout.activity_teacher);
 
         Toolbar toolbar = findViewById(R.id.toolbar_teach);
         setSupportActionBar(toolbar);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView_teach);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView_teacher);
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         viewDialog = new ViewDialog(this);
 
         listItems = new ArrayList<>();
-        FloatingActionButton teachFAB = findViewById(R.id.teacher_fab);
+        FloatingActionButton AddTeacherBtn = findViewById(R.id.teacher_fab);
 
-        teachFAB.setOnClickListener(v -> {
+        AddTeacherBtn.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
             startActivity(i);
         });
 
 
 
-        adapter = new MyAdapter(listItems, this);
+        adapter = new TeacherAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
 
         GetTeacher();
 
@@ -146,7 +155,7 @@ public class TeacherActivity extends AppCompatActivity implements MyAdapter.MyAd
     }
 
     @Override
-    public void onContactSelected(Teacher teacher) {
+    public void onTeacherSelected(Teacher teacher) {
         Toast.makeText(getApplicationContext(), "Selected: " + teacher.getName() + ", " + teacher.getPhone(), Toast.LENGTH_LONG).show();
     }
 }
