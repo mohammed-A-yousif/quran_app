@@ -19,5 +19,10 @@
     <string name="teacherName">Ahmed K Madani</string>
     <string name="teacherAddress">Khartoum - Sudan</string>
     <string name="createdDate">Now</string>
+    <string name="add_teacher_name">اسم الشيخ</string>
+    <string name="add_teacher_address">السكن</string>
+    <string name="add_teacher_phone">الهاتف</string>
+    <string name="add_teacher_password">كلمة السر</string>
+    <string name="add_teacher">اضافة شيخ</string>
 
 </resources>
