@@ -9,5 +9,7 @@
     <string name="password">كلمة السر</string>
     <string name="login">تسجيل الدخول</string>
     <string name="splash_text">مركز الإتقان لتحفيظ القرآن</string>
+    <string name="welcome">اهلا و سهلا</string>
+    <string name="back_to_your_dashbaord"> في مركز الاتقان لتحفيظ القران</string>
 
 </resources>

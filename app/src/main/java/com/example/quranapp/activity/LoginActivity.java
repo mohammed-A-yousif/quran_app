@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.activity;
 
 import android.util.Log;
 import android.util.Patterns;
@@ -14,19 +14,29 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quranapp.Admin;
+import com.example.quranapp.Control;
+import com.example.quranapp.R;
+import com.example.quranapp.SharedPrefManager;
+import com.example.quranapp.URLs;
+import com.example.quranapp.ViewDialog;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.example.quranapp.URLs.BaseUrl;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     String PhoneNumber;
     String Password;
 
     ViewDialog viewDialog;
+
     EditText phoneEditText;
     EditText passEditText;
 
@@ -43,12 +53,13 @@ public class Login extends AppCompatActivity {
 
         viewDialog = new ViewDialog(this);
 
-        phoneEditText = (EditText) findViewById(R.id.input_phone);
-        passEditText = (EditText) findViewById(R.id.input_password);
+        phoneEditText = (EditText) findViewById(R.id.input_text_phonenumber);
+        passEditText = (EditText) findViewById(R.id.input_text_password);
 
-        Button loginButton = (Button) findViewById(R.id.btn_signin);
+        Button loginButton = (Button) findViewById(R.id.btn_login);
 
         loginButton.setOnClickListener(v -> {
+
             PhoneNumber = phoneEditText.getText().toString();
             Password = passEditText.getText().toString();
 
@@ -67,7 +78,7 @@ public class Login extends AppCompatActivity {
                 URLs.Login + "?PhoneNumber=" + phoneNumber + "&Password=" + password,
                 null, (JSONObject response) -> {
             try {
-//                String name = response.getString("Name");
+
                 Admin admin = new Admin(response.getInt("IdAdmin"), response.getInt("UserType"),
                         response.getString("Name"), response.getString("PhoneNumber"));
 
@@ -79,8 +90,6 @@ public class Login extends AppCompatActivity {
                 onSiginFailed();
             }
 
-            Log.d("String Response : ", "" + response.toString());
-            Log.d("name", String.valueOf(SharedPrefManager.getInstance(this).isLoggedIn()));
         }, error -> Log.d("Error getting response", "" + error));
 
         requestQueue.add(jsonObjectRequest);
@@ -107,20 +116,33 @@ public class Login extends AppCompatActivity {
     private boolean validate() {
         boolean valid = true;
 
-        if (PhoneNumber == null && !Patterns.PHONE.matcher(PhoneNumber).matches()) {
+        if (PhoneNumber.length() == 0 && !Patterns.PHONE.matcher(phoneEditText.getText().toString()).matches()) {
             phoneEditText.setError("Enter a valid phone number");
             valid = false;
         } else {
             phoneEditText.setError(null);
         }
 
-        if (Password == null && Password.length() < 2 && Password.length() > 4) {
+        if (Password.length() > 0 && Password.length() < 4  &&!isValidPassword(Password)){
             passEditText.setError("Between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
             passEditText.setError(null);
         }
+
         return valid;
+    }
+
+    public static boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
     }
 
 }
