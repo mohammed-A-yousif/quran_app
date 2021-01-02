@@ -13,12 +13,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quranapp.activity.StudentsActivity;
+import com.example.quranapp.model.Teacher;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -59,6 +62,16 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.adding_student);
 
+        Toolbar toolbar = findViewById(R.id.students_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.toolbar_title);
+
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
         student_name_editText = findViewById(R.id.student_name_editText);
         student_living_editText = findViewById(R.id.student_living_editText);
         student_phone_editText = findViewById(R.id.student_phone_editText);
@@ -86,7 +99,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Snackbar.make(findViewById(android.R.id.content), "Please Choose Teacher !!! ", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                        .show();
             }
         });
 
@@ -118,23 +131,21 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
                 }
 
                 addStudentSpinner.setAdapter(new ArrayAdapter<>(com.example.quranapp.AddingStudent.this, R.layout.spinner_item, TeacherArray));
-                Snackbar.make(findViewById(android.R.id.content), "Teacher got successfully", Snackbar.LENGTH_LONG)
-                        .show();
                 viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
                 viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
-                        .setAction("Retry", v -> GetTeacher()).show();
+                Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + e , Snackbar.LENGTH_LONG)
+                        .setAction(" محاولة مرة اخري ", v -> GetTeacher()).show();
             }
 
         }, error -> {
             error.printStackTrace();
             viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
-                    .setAction("Retry", v -> GetTeacher()).show();
+            Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ  " + error , Snackbar.LENGTH_LONG)
+                    .setAction(" محاولة مرة اخري ", v -> GetTeacher()).show();
         });
 
 
@@ -152,6 +163,8 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         student_work_ = student_work_editText.getText().toString();
         student_AcademicLevel_ = student_living_editText.getText().toString();
 
+
+        viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddStudent + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&IdTeacher=" + IdTeacher  + "&Name=" + student_name_  + "&Password=" + student_password_
                 + "&PhoneNumber=" + student_phone_ + "&Address=" + student_living_ + "&EductionLevel=" + student_AcademicLevel_ + "&WorkPlace=" + student_work_  + "&UserType=" + 3 + "&Enabled=" + 1, null,
@@ -168,7 +181,6 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
                     }
 
                     Log.d("String Response : ", ""+  response.toString());
-                    Log.d("name", String.valueOf(SharedPrefManager.getInstance(this).isLoggedIn()));
                 }, error -> Log.d("Error getting response", "" +error));
 
         requestQueue.add(jsonObjectRequest);

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.example.quranapp.activity.LoginActivity;
+import com.example.quranapp.model.Admin;
 
 public class SharedPrefManager {
 

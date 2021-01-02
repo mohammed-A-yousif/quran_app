@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:theme="@style/AppThemeSplash"
-    tools:context=".Missions">
+    tools:context=".activity.TaskActivity">
 
     <TextView
         android:id="@+id/textView2"

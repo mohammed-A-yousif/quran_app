@@ -13,7 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.quranapp.Admin;
+import com.example.quranapp.model.Admin;
 import com.example.quranapp.R;
 import com.example.quranapp.SharedPrefManager;
 import com.example.quranapp.URLs;
@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
 
         viewDialog = new ViewDialog(this);
 
-        phoneEditText = (EditText) findViewById(R.id.input_text_phonenumber);
-        passEditText = (EditText) findViewById(R.id.input_text_password);
+        phoneEditText = findViewById(R.id.input_text_phonenumber);
+        passEditText = findViewById(R.id.input_text_password);
 
         Button loginButton = (Button) findViewById(R.id.btn_login);
 

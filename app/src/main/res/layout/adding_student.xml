@@ -4,7 +4,26 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="@android:color/white">
+android:background="@color/bg">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/students_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/students_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
@@ -12,13 +31,14 @@ android:background="@android:color/white">
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="@color/background"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/students_appBarLayout">
 
         <EditText
             android:id="@+id/student_name_editText"
@@ -26,14 +46,13 @@ android:background="@android:color/white">
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:gravity="right"
-            android:hint="اسم الدارس"
+            android:hint="@string/student_name"
             android:inputType="text"
-            android:textColor="@color/background"
-            android:textColorHint="@color/background"
-            android:textColorLink="@color/background"
-            android:textCursorDrawable="@color/background" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <TextView
         android:id="@+id/textView"
@@ -41,12 +60,13 @@ android:background="@android:color/white">
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:gravity="right"
         android:paddingBottom="4dp"
-        android:text="اختر الشيخ :"
-        android:textColor="@color/background"
+        android:text="@string/pick_teacher"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,15 +81,16 @@ android:background="@android:color/white">
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:backgroundTint="@color/background"
+        android:backgroundTint="@color/white"
         android:gravity="right"
-        android:textColor="@color/background"
-        android:textColorHint="@color/background"
-        android:textColorLink="@color/background"
-        android:textCursorDrawable="@color/background"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textColorLink="@color/white"
+        android:textCursorDrawable="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:targetApi="lollipop" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout9"
@@ -79,7 +100,7 @@ android:background="@android:color/white">
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="@color/background"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_student_spinner">
@@ -90,12 +111,12 @@ android:background="@android:color/white">
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:gravity="right"
-            android:hint="السكن"
+            android:hint="@string/student_address"
             android:inputType="text"
-            android:textColor="@color/background"
-            android:textColorHint="@color/background"
-            android:textColorLink="@color/background"
-            android:textCursorDrawable="@color/background" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -107,7 +128,7 @@ android:background="@android:color/white">
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="@color/background"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout9">
@@ -118,12 +139,12 @@ android:background="@android:color/white">
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:gravity="right"
-            android:hint="الهاتف"
+            android:hint="@string/student_phonenumber"
             android:inputType="phone"
-            android:textColor="@color/background"
-            android:textColorHint="@color/background"
-            android:textColorLink="@color/background"
-            android:textCursorDrawable="@color/background" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -134,7 +155,7 @@ android:background="@android:color/white">
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="@color/background"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout8">
@@ -145,12 +166,12 @@ android:background="@android:color/white">
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:gravity="right"
-            android:hint="كلمة السر"
+            android:hint="@string/student_pasword"
             android:inputType="textPassword"
-            android:textColor="@color/background"
-            android:textColorHint="@color/background"
-            android:textColorLink="@color/background"
-            android:textCursorDrawable="@color/background" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -162,7 +183,7 @@ android:background="@android:color/white">
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="@color/background"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
@@ -173,12 +194,12 @@ android:background="@android:color/white">
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:gravity="right"
-            android:hint="مكان العمل"
+            android:hint="@string/workplace"
             android:inputType="text"
-            android:textColor="@color/background"
-            android:textColorHint="@color/background"
-            android:textColorLink="@color/background"
-            android:textCursorDrawable="@color/background" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -190,7 +211,7 @@ android:background="@android:color/white">
         android:layout_marginLeft="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:textColorHint="@color/background"
+        android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
@@ -201,12 +222,12 @@ android:background="@android:color/white">
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:gravity="right"
-            android:hint="مستوى الدراسي"
+            android:hint="@string/eduction_level"
             android:inputType="text"
-            android:textColor="@color/background"
-            android:textColorHint="@color/background"
-            android:textColorLink="@color/background"
-            android:textCursorDrawable="@color/background" />
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textColorLink="@color/white"
+            android:textCursorDrawable="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -216,17 +237,17 @@ android:background="@android:color/white">
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/round_corner"
         android:padding="12dp"
-        android:text="اضافة دارس"
+        android:text="@string/add_student"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

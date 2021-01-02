@@ -8,11 +8,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import com.example.quranapp.Missions;
 import com.example.quranapp.R;
 import com.example.quranapp.Review;
 import com.example.quranapp.SharedPrefManager;
-import com.example.quranapp.StudentsActivity;
 
 public class DashboardActivity extends AppCompatActivity {
     @Override
@@ -41,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         missions_cardView.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), Missions.class);
+            Intent i = new Intent(getApplicationContext(), TaskActivity.class);
             startActivity(i);
         });
 

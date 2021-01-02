@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -8,19 +8,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.quranapp.TaskAdapter;
+import com.example.quranapp.R;
+import com.example.quranapp.model.Task;
+import com.example.quranapp.URLs;
+import com.example.quranapp.model.Teacher;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -30,78 +32,70 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentsActivity extends AppCompatActivity implements StudentAdapter.StudentAdapterListener {
-
-    private StudentAdapter adapter;
+public class TaskActivity extends AppCompatActivity implements TaskAdapter.MissionsAdapterListener {
+    private TaskAdapter adapter;
     private JSONArray jsonArray;
-
-    List<Student> listItems ;
-    ViewDialog viewDialog;
+    List<Task> listItems ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.students_activity);
+        setContentView(R.layout.tasks_activity);
+        Toolbar toolbar = findViewById(R.id.task_toolbar);
 
-        Toolbar toolbar = findViewById(R.id.students_toolbar);
         setSupportActionBar(toolbar);
-        viewDialog = new ViewDialog(this);
+        RecyclerView recyclerView = findViewById(R.id.task_recyclerView);
 
-        RecyclerView recyclerView = findViewById(R.id.students_recyclerView);
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
 
-        FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
-        studentsFAB.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), AddingStudent.class);
-            startActivity(i);
-        });
-
-
-        adapter = new StudentAdapter(listItems, this);
+        adapter = new TaskAdapter(listItems, this);
         recyclerView.setAdapter(adapter);
 
-        // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
 
-        getStudents();
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+        getTasks();
+
     }
 
-
-    public void getStudents(){
-         viewDialog.showDialog();
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetStudents, response -> {
+    private void getTasks() {
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetSTasks  , response -> {
             try {
                 jsonArray = new JSONArray(response);
                 for (int i = 0; i < jsonArray.length(); i ++){
-                    JSONObject StudentObject = jsonArray.getJSONObject(i);
-                    String Name = StudentObject.getString("Name");
-                    String PhoneNumber = StudentObject.getString("PhoneNumber");
-                    String Date = StudentObject.getString("CreatedAt");
-                    Student listItem = new Student(Name, PhoneNumber, Date);
+                    JSONObject TaskObject = jsonArray.getJSONObject(i);
+                    int Id = TaskObject.getInt("IdTask");
+                    String TaskName = TaskObject.getString("TaskName");
+                    String TaskDec = TaskObject.getString("TaskDec");
+                    String CreatedAt = TaskObject.getString("CreatedAt");
+                    Task listItem = new Task(Id,TaskName, TaskDec, CreatedAt);
                     listItems.add(listItem);
                 }
 
                 adapter.notifyDataSetChanged();
-                viewDialog.hideDialog();
+//                viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
-                        .setAction("Retry", v -> getStudents()).show();
+//                viewDialog.hideDialog();
+                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Students " + e , Snackbar.LENGTH_LONG)
+                        .setAction("Retry", v -> getTasks()).show();
             }
 
         }, error -> {
             error.printStackTrace();
-            viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
-                    .setAction("Retry", v -> getStudents()).show();
+//            viewDialog.hideDialog();
+            Snackbar.make(findViewById(android.R.id.content),"Couldn't get Students " + error , Snackbar.LENGTH_LONG)
+                    .setAction("Retry", v -> getTasks()).show();
         });
 
         requestQueue.add(stringRequest);
@@ -130,7 +124,6 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
             @Override
             public boolean onQueryTextChange(String newText) {
                 adapter.getFilter().filter(newText);
-
                 return false;
             }
         });
@@ -139,8 +132,8 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
     }
 
     @Override
-    public void onStudentSelected(Student student) {
-        Toast.makeText(getApplicationContext(), "Selected: " + student.getName() + ", " + student.getPhone(), Toast.LENGTH_LONG).show();
+    public void onContactSelected(Teacher teacher) {
+        Toast.makeText(getApplicationContext(), "Selected: " + teacher.getName() + ", " + teacher.getPhone(), Toast.LENGTH_LONG).show();
     }
 }
 

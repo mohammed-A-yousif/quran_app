@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quranapp.R;
-import com.example.quranapp.Teacher;
+import com.example.quranapp.model.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,6 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             textTeacherAddress = itemView.findViewById(R.id.textTeacherAddress);
             textTeacherPhoneNumber = itemView.findViewById(R.id.textTeacherPhoneNumber);
             timestamp = itemView.findViewById(R.id.timestamp);
-//            textViewDate = itemView.findViewById(R.id.date_textView);
         }
     }
 

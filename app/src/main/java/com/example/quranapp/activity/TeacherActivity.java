@@ -19,9 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.quranapp.AddingTeacher;
 import com.example.quranapp.R;
-import com.example.quranapp.Teacher;
+import com.example.quranapp.model.Teacher;
 import com.example.quranapp.adapter.TeacherAdapter;
 import com.example.quranapp.URLs;
 import com.example.quranapp.ViewDialog;
@@ -105,15 +104,15 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
             } catch (JSONException e) {
                 e.printStackTrace();
                 viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + e , Snackbar.LENGTH_LONG)
-                        .setAction("Retry", v -> GetTeacher()).show();
+                Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + e , Snackbar.LENGTH_LONG)
+                        .setAction("محاولة مرة اخري", v -> GetTeacher()).show();
             }
 
         }, error -> {
             error.printStackTrace();
             viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content), "Couldn't get Teacher " + error , Snackbar.LENGTH_LONG)
-                    .setAction("Retry", v -> GetTeacher()).show();
+            Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + error , Snackbar.LENGTH_LONG)
+                    .setAction(" محاولة مرة اخري ", v -> GetTeacher()).show();
         });
 
 

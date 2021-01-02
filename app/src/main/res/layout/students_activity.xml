@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".StudentsActivity">
+    tools:context=".activity.StudentsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/students_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,11 +19,10 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/students_toolbar"
             android:layout_width="match_parent"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:layout_height="?attr/actionBarSize"/>
-<!--            android:background="@drawable/rounded_text" />-->
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

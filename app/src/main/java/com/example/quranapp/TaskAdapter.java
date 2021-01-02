@@ -11,31 +11,37 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quranapp.model.Task;
+import com.example.quranapp.model.Teacher;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder> implements Filterable {
-    private List<Student> listItems;
-    private List<Student> listItemsFiltered;
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> implements Filterable {
+    private List<Task> listItems;
+    private List<Task> listItemsFiltered;
 
-    public StudentAdapter(List<Student> listItems, Context context) {
+
+    public TaskAdapter(List<Task> listItems, Context context) {
         this.listItems = listItems;
         listItemsFiltered = new ArrayList<>(listItems);
+
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_teacher, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_task, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Student listItem = listItems.get(position);
-        holder.textViewName.setText(listItem.getName());
-        holder.textViewPhone.setText(listItem.getPhone());
-//        holder.textViewDate.setText(listItem.getDate());
+        Task listItem = listItems.get(position);
+        holder.textStudentName.setText(listItem.getTaskName());
+        holder.textteacherName.setText(listItem.getTaskDec());
+        holder.textteacherName.setText(listItem.getTaskDec());
+        holder.textViewDate.setText(listItem.getCreatedAt());
     }
 
     @Override
@@ -43,36 +49,37 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         return listItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewName;
-        public TextView textViewPhone;
-        public TextView textViewDate;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            textViewName = itemView.findViewById(R.id.textTeacherName);
-            textViewPhone = itemView.findViewById(R.id.textTeacherAddress);
-//            textViewDate = itemView.findViewById(R.id.date_textView);
-        }
-    }
-
     @Override
     public Filter getFilter() {
         return contactFilter;
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView textStudentName;
+        public TextView textteacherName;
+        public TextView textTaskDetails;
+        public TextView textViewDate;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textStudentName = itemView.findViewById(R.id.textStudentName);
+            textteacherName = itemView.findViewById(R.id.textteacherName);
+            textTaskDetails = itemView.findViewById(R.id.textTaskDetails);
+            textViewDate = itemView.findViewById(R.id.timestamp);
+        }
+    }
     private Filter contactFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Student> filteredList =new ArrayList<>();
+            List<Task> filteredList =new ArrayList<>();
 
             if (constraint==null|| constraint.length()==0){
                 filteredList.addAll(listItemsFiltered);
             }else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Student item : listItemsFiltered){
-                    if (item.getName().toLowerCase().contains(filterPattern) || item.getPhone().contains(filterPattern)){
+                for (Task item : listItemsFiltered){
+                    if (item.getTaskName().toLowerCase().contains(filterPattern) || item.getTaskDec().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }
@@ -90,7 +97,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
         }
     };
-    public interface StudentAdapterListener {
-        void onStudentSelected(Student student);
+
+    public interface MissionsAdapterListener {
+        void onContactSelected(Teacher teacher);
     }
+
 }

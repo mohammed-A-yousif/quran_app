@@ -24,5 +24,13 @@
     <string name="add_teacher_phone">الهاتف</string>
     <string name="add_teacher_password">كلمة السر</string>
     <string name="add_teacher">اضافة شيخ</string>
+    <string name="eduction_level">مستوى الدراسي</string>
+    <string name="student_name">اسم الدارس</string>
+    <string name="add_student">اضافة دارس</string>
+    <string name="workplace">مكان العمل</string>
+    <string name="student_pasword">كلمة السر</string>
+    <string name="student_phonenumber">الهاتف</string>
+    <string name="pick_teacher">اختر الشيخ :</string>
+    <string name="student_address">السكن</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quranapp.R;
+import com.example.quranapp.SharedPrefManager;
+import com.example.quranapp.URLs;
+import com.example.quranapp.ViewDialog;
 import com.example.quranapp.activity.TeacherActivity;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -63,7 +67,6 @@ public class AddingTeacher extends AppCompatActivity {
 
     private void AddTeacher() {
 
-        viewDialog.showDialog();
         teacher_name_ = teacher_name_editText.getText().toString();
         teacher_living_ = teacher_living_editText.getText().toString();
         teacher_phone_ = teacher_phone_editText.getText().toString();
@@ -72,14 +75,13 @@ public class AddingTeacher extends AppCompatActivity {
         if (!validate()) {
             return;
         }
-
+        viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URLs.AddTeacher + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&Name=" + teacher_name_ + "&Password=" + teacher_password_
                 + "&PhoneNumber=" + teacher_phone_ + "&Address=" + teacher_living_ + "&UserType=" + 2 + "&Enabled=" + 1, null,
                 (JSONObject response) -> {
                     try {
                         String name = response.getString("Name");
-
                         Log.d("res", response.toString());
                         onInsertSuccess();
 
@@ -98,15 +100,15 @@ public class AddingTeacher extends AppCompatActivity {
 
     private void onInsertFailed() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "Sign in Failed", Snackbar.LENGTH_LONG)
-                .setAction("Try Again", v -> {
+        Snackbar.make(findViewById(android.R.id.content), "فشل اضافة الشيخ", Snackbar.LENGTH_LONG)
+                .setAction("محاولة مرة اخري", v -> {
                     AddTeacher();
                 }).show();
     }
 
     private void onInsertSuccess() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "Sign in Successfully", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "نمت اضافة الشيخ بنجاح", Snackbar.LENGTH_LONG)
                 .show();
         startActivity(new Intent(this, TeacherActivity.class));
         finish();
@@ -116,21 +118,21 @@ public class AddingTeacher extends AppCompatActivity {
         boolean valid = true;
 
         if (teacher_name_.length() == 0 ) {
-            teacher_name_editText.setError("الرجاء ادخال رقم هاتف صالح");
+            teacher_name_editText.setError("الرجاء ادخال اسم الشيخ");
             valid = false;
         } else {
             teacher_name_editText.setError(null);
         }
 
         if (teacher_living_.length()  == 0) {
-            teacher_living_editText.setError("كلمة السر يجب ان تحتوي علي اربعة حروف علي الاقل ");
+            teacher_living_editText.setError("الرجاء ادخال عنوان الشيخ ");
             valid = false;
         } else {
             teacher_living_editText.setError(null);
         }
 
         if (teacher_phone_.length()  == 0) {
-            teacher_phone_editText.setError("كلمة السر يجب ان تحتوي علي اربعة حروف علي الاقل ");
+            teacher_phone_editText.setError("الرجاء ادخال رقم الهاتف ");
             valid = false;
         } else {
             teacher_phone_editText.setError(null);

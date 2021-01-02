@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.model;
 
 public class Admin {
     private int Id;
