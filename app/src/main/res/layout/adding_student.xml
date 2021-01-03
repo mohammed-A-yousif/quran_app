@@ -7,7 +7,7 @@ android:layout_height="fill_parent"
 android:background="@color/bg">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/students_appBarLayout"
+        android:id="@+id/student_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -15,7 +15,7 @@ android:background="@color/bg">
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/students_toolbar"
+            android:id="@+id/student_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -38,7 +38,7 @@ android:background="@color/bg">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/students_appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/student_appBarLayout">
 
         <EditText
             android:id="@+id/student_name_editText"

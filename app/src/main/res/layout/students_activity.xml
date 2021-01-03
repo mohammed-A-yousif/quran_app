@@ -9,7 +9,7 @@
     tools:context=".activity.StudentsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/students_appBarLayout"
+        android:id="@+id/student_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/students_toolbar"
+            android:id="@+id/student_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/students_appBarLayout"
+        app:layout_constraintTop_toBottomOf="@+id/student_appBarLayout"
         android:scrollbars="vertical"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

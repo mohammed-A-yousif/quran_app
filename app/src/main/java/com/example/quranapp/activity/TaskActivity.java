@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.quranapp.TaskAdapter;
 import com.example.quranapp.R;
+import com.example.quranapp.ViewDialog;
 import com.example.quranapp.model.Task;
 import com.example.quranapp.URLs;
 import com.example.quranapp.model.Teacher;
@@ -36,6 +37,7 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
     private TaskAdapter adapter;
     private JSONArray jsonArray;
     List<Task> listItems ;
+    ViewDialog viewDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
         setSupportActionBar(toolbar);
         RecyclerView recyclerView = findViewById(R.id.task_recyclerView);
 
+        viewDialog = new ViewDialog(this);
         recyclerView.setHasFixedSize(true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -81,19 +84,19 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
                 }
 
                 adapter.notifyDataSetChanged();
-//                viewDialog.hideDialog();
+                viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
-//                viewDialog.hideDialog();
+                viewDialog.hideDialog();
                 Snackbar.make(findViewById(android.R.id.content), "Couldn't get Students " + e , Snackbar.LENGTH_LONG)
                         .setAction("Retry", v -> getTasks()).show();
             }
 
         }, error -> {
             error.printStackTrace();
-//            viewDialog.hideDialog();
+            viewDialog.hideDialog();
             Snackbar.make(findViewById(android.R.id.content),"Couldn't get Students " + error , Snackbar.LENGTH_LONG)
                     .setAction("Retry", v -> getTasks()).show();
         });

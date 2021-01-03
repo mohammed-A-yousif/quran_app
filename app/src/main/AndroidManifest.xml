@@ -68,13 +68,13 @@
 
         <!-- review activity -->
         <activity
-            android:name=".Review"
+            android:name=".activity.ReviewActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- studentsReviews activity -->
         <activity
-            android:name=".StudentsReviews"
+            android:name=".activity.StudentsReviews"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 

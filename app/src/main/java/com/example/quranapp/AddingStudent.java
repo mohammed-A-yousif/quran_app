@@ -62,7 +62,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.adding_student);
 
-        Toolbar toolbar = findViewById(R.id.students_toolbar);
+        Toolbar toolbar = findViewById(R.id.student_toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

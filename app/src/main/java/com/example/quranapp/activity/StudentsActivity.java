@@ -48,7 +48,7 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.students_activity);
 
-        Toolbar toolbar = findViewById(R.id.students_toolbar);
+        Toolbar toolbar = findViewById(R.id.student_toolbar);
         setSupportActionBar(toolbar);
         viewDialog = new ViewDialog(this);
 

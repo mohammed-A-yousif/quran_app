@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,37 +11,36 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quranapp.model.Task;
-import com.example.quranapp.model.Teacher;
+import com.example.quranapp.R;
+import com.example.quranapp.model.Review;
+import com.example.quranapp.model.Student;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> implements Filterable {
-    private List<Task> listItems;
-    private List<Task> listItemsFiltered;
+public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> implements Filterable {
+    private List<Review> listItems;
+    private List<Review> listItemsFiltered;
 
-
-    public TaskAdapter(List<Task> listItems, Context context) {
+    public ReviewAdapter(List<Review> listItems, Context context) {
         this.listItems = listItems;
         listItemsFiltered = new ArrayList<>(listItems);
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_task, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_review, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Task listItem = listItems.get(position);
-        holder.textStudentName.setText(listItem.getTaskName());
-        holder.textteacherName.setText(listItem.getTaskDec());
-        holder.textteacherName.setText(listItem.getTaskDec());
-        holder.textViewDate.setText(listItem.getCreatedAt());
+        Review listItem = listItems.get(position);
+        holder.textReviewDecName.setText(listItem.getReviewDec());
+        holder.textNumberofPart.setText(listItem.getNumberOfParts());
+//        holder.textStudentPhoneNumber.setText(listItem.getPhone());
+//        holder.timestamp.setText(listItem.getDate());
     }
 
     @Override
@@ -49,36 +48,39 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> im
         return listItems.size();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView textReviewDecName;
+        public TextView textNumberofPart;
+//        public TextView textStudentPhoneNumber;
+//        public TextView timestamp;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            textReviewDecName = itemView.findViewById(R.id.textReviewDecName);
+            textNumberofPart = itemView.findViewById(R.id.textNumberofPart);
+//            textStudentPhoneNumber = itemView.findViewById(R.id.textTaskDetails);
+//            timestamp = itemView.findViewById(R.id.timestamp);
+
+        }
+    }
+
     @Override
     public Filter getFilter() {
         return contactFilter;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textStudentName;
-        public TextView textteacherName;
-        public TextView textTaskDetails;
-        public TextView textViewDate;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textStudentName = itemView.findViewById(R.id.textStudentName);
-            textteacherName = itemView.findViewById(R.id.textteacherName);
-            textTaskDetails = itemView.findViewById(R.id.textTaskDetails);
-            textViewDate = itemView.findViewById(R.id.timestamp);
-        }
-    }
     private Filter contactFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Task> filteredList =new ArrayList<>();
+            List<Review> filteredList =new ArrayList<>();
 
             if (constraint==null|| constraint.length()==0){
                 filteredList.addAll(listItemsFiltered);
             }else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Task item : listItemsFiltered){
-                    if (item.getTaskName().toLowerCase().contains(filterPattern) || item.getTaskDec().contains(filterPattern)){
+                for (Review item : listItemsFiltered){
+                    if (item.getReviewDec().toLowerCase().contains(filterPattern) || item.getNumberOfParts().contains(filterPattern)){
                         filteredList.add(item);
                     }
                 }
@@ -96,9 +98,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> im
 
         }
     };
-
-    public interface MissionsAdapterListener {
-        void onContactSelected(Teacher teacher);
+    public interface ReviewAdapterListener {
+        void onReviewSelected(Review review);
     }
-
 }

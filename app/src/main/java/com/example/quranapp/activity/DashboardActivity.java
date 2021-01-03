@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.quranapp.R;
-import com.example.quranapp.Review;
 import com.example.quranapp.SharedPrefManager;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -44,7 +43,7 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         review_cardView.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), Review.class);
+            Intent i = new Intent(getApplicationContext(), ReviewActivity.class);
             startActivity(i);
         });
     }
