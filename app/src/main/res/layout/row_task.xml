@@ -19,6 +19,7 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <RelativeLayout
+        android:id="@+id/task_layout"
         android:layout_width="match_parent"
         android:layout_height="146dp"
         android:clickable="true"
@@ -70,7 +71,7 @@
 
 
             <TextView
-                android:id="@+id/textTaskDetails"
+                android:id="@+id/textTaskName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

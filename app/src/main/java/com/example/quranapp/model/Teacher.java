@@ -4,13 +4,15 @@ package com.example.quranapp.model;
 public class Teacher {
     int id;
     String name;
+    String address;
     String phone;
     String date;
 
 
-    public Teacher(int id, String name, String phone, String date) {
+    public Teacher(int id, String name, String Address, String phone, String date) {
         this.id = id;
         this.name = name;
+        this.address = Address;
         this.phone = phone;
         this.date = date;
     }
@@ -31,6 +33,9 @@ public class Teacher {
         this.date = date;
     }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public int getId() {
         return id;
@@ -46,5 +51,9 @@ public class Teacher {
 
     public String getDate() {
         return date;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

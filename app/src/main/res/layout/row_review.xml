@@ -45,7 +45,7 @@
             android:paddingEnd="16sp">
 
             <TextView
-                android:id="@+id/textReviewDecName"
+                android:id="@+id/textReviewStudent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -59,7 +59,7 @@
 
 
             <TextView
-                android:id="@+id/textNumberofPart"
+                android:id="@+id/textReviewTeacher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -70,7 +70,7 @@
 
 
             <TextView
-                android:id="@+id/textTaskDetails"
+                android:id="@+id/textReviewDec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quranapp.InternetStatus;
 import com.example.quranapp.R;
 import com.example.quranapp.URLs;
 import com.example.quranapp.ViewDialog;
@@ -66,7 +67,13 @@ public class StudentsReviews extends AppCompatActivity {
         });
 
         DatePicekd = intent.getStringExtra("DatePicekd");
-        GetRview(DatePicekd);
+
+        if (InternetStatus.getInstance(this).isOnline()) {
+            GetRview(DatePicekd);
+        } else {
+            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
+                    .setAction("محاولة مرة اخري", v ->   GetRview(DatePicekd)).show();
+        }
 
     }
 
@@ -79,9 +86,12 @@ public class StudentsReviews extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i ++){
                     JSONObject ReviewObject = jsonArray.getJSONObject(i);
                     int IdReview = ReviewObject.getInt("IdReview");
+                    String Student = ReviewObject.getString("Student");
+                    String Teacher = ReviewObject.getString("Teacher");
                     String ReviewDec = ReviewObject.getString("ReviewDec");
                     String NumberOfParts = ReviewObject.getString("NumberOfParts");
-                    Review listItem = new Review(IdReview, ReviewDec, NumberOfParts);
+                    String CreatedAt = ReviewObject.getString("CreatedAt");
+                    Review listItem = new Review(IdReview, Student,Teacher , ReviewDec, NumberOfParts, CreatedAt);
                     listItems.add(listItem);
                 }
 

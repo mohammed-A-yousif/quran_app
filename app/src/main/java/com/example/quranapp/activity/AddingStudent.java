@@ -1,4 +1,4 @@
-package com.example.quranapp;
+package com.example.quranapp.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,7 +20,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.quranapp.activity.StudentsActivity;
+import com.example.quranapp.R;
+import com.example.quranapp.SharedPrefManager;
+import com.example.quranapp.URLs;
+import com.example.quranapp.ViewDialog;
 import com.example.quranapp.model.Teacher;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -125,12 +128,12 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
                     String PhoneNumber = TeacherObject.getString("PhoneNumber");
                     int Id = TeacherObject.getInt("IdTeacher");
                     String Date = TeacherObject.getString("CreatedAt");
-                    Teacher listItem = new Teacher(Id ,Name, PhoneNumber, Date);
+                    Teacher listItem = new Teacher(Id , Name, Name, PhoneNumber, Date);
                     listItems.add(listItem);
                     TeacherArray.add(listItem.getName());
                 }
 
-                addStudentSpinner.setAdapter(new ArrayAdapter<>(com.example.quranapp.AddingStudent.this, R.layout.spinner_item, TeacherArray));
+                addStudentSpinner.setAdapter(new ArrayAdapter<>(AddingStudent.this, R.layout.spinner_item, TeacherArray));
                 viewDialog.hideDialog();
                 Log.d("res", jsonArray.toString());
 

@@ -19,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quranapp.InternetStatus;
 import com.example.quranapp.R;
 import com.example.quranapp.model.Teacher;
 import com.example.quranapp.adapter.TeacherAdapter;
@@ -66,7 +67,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
 
 
 
-        adapter = new TeacherAdapter(listItems, this);
+        adapter = new TeacherAdapter(listItems, this, this::onTeacherSelected);
         recyclerView.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,7 +77,13 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
             finish();
         });
 
-        GetTeacher();
+        if (InternetStatus.getInstance(this).isOnline()) {
+            GetTeacher();
+        } else {
+            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
+                    .setAction("محاولة مرة اخري", v -> GetTeacher()).show();
+        }
+
 
     }
 
@@ -89,17 +96,18 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
                 jsonArray = new JSONArray(response);
                 for (int i = 0; i < jsonArray.length(); i ++){
                     JSONObject TeacherObject = jsonArray.getJSONObject(i);
-                    String Name = TeacherObject.getString("Name");
                     int Id = TeacherObject.getInt("IdTeacher");
+                    String Name = TeacherObject.getString("Name");
+                    String Address = TeacherObject.getString("Address");
                     String PhoneNumber = TeacherObject.getString("PhoneNumber");
                     String Date = TeacherObject.getString("CreatedAt");
-                    Teacher listItem = new Teacher(Id, Name, PhoneNumber, Date);
+                    Teacher listItem = new Teacher(Id, Name,Address, PhoneNumber, Date);
                     listItems.add(listItem);
                 }
 
                 adapter.notifyDataSetChanged();
                 viewDialog.hideDialog();
-                Log.d("res", jsonArray.toString());
+//                Log.d("res", jsonArray.toString());
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -155,6 +163,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
 
     @Override
     public void onTeacherSelected(Teacher teacher) {
+        Log.d("selected", teacher.getName());
         Toast.makeText(getApplicationContext(), "Selected: " + teacher.getName() + ", " + teacher.getPhone(), Toast.LENGTH_LONG).show();
     }
 }

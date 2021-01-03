@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quranapp">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,7 +16,7 @@
 
         <!-- Splash screen -->
         <activity
-            android:name=".SplashScreen"
+            android:name=".activity.SplashScreen"
             android:theme="@style/AppThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,7 +58,7 @@
 
         <!-- addingStudents activity -->
         <activity
-            android:name=".AddingStudent"
+            android:name=".activity.AddingStudent"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 

@@ -37,10 +37,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Review listItem = listItems.get(position);
-        holder.textReviewDecName.setText(listItem.getReviewDec());
-        holder.textNumberofPart.setText(listItem.getNumberOfParts());
-//        holder.textStudentPhoneNumber.setText(listItem.getPhone());
-//        holder.timestamp.setText(listItem.getDate());
+        holder.textReviewStudent.setText("اسم الدارس : " + listItem.getStudnet());
+        holder.textReviewTeacher.setText("اسم الشيخ : " + listItem.getTeacher());
+        holder.textReviewDec.setText("تفاصيل المراجعة : " + listItem.getReviewDec());
+        holder.timestamp.setText(listItem.getCreatedAt());
     }
 
     @Override
@@ -49,18 +49,18 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textReviewDecName;
-        public TextView textNumberofPart;
-//        public TextView textStudentPhoneNumber;
-//        public TextView timestamp;
+        public TextView textReviewStudent;
+        public TextView textReviewTeacher;
+        public TextView textReviewDec;
+        public TextView timestamp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textReviewDecName = itemView.findViewById(R.id.textReviewDecName);
-            textNumberofPart = itemView.findViewById(R.id.textNumberofPart);
-//            textStudentPhoneNumber = itemView.findViewById(R.id.textTaskDetails);
-//            timestamp = itemView.findViewById(R.id.timestamp);
+            textReviewStudent = itemView.findViewById(R.id.textReviewStudent);
+            textReviewTeacher = itemView.findViewById(R.id.textReviewTeacher);
+            textReviewDec = itemView.findViewById(R.id.textReviewDec);
+            timestamp = itemView.findViewById(R.id.timestamp);
 
         }
     }

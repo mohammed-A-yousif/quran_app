@@ -36,9 +36,10 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Student listItem = listItems.get(position);
-        holder.textStudentName.setText(listItem.getName());
-        holder.textStudentAddress.setText(listItem.getName());
-        holder.textStudentPhoneNumber.setText(listItem.getPhone());
+        holder.textStudentName.setText("اسم الدارس : " + listItem.getName());
+        holder.textTeacherName.setText("اسم الشيخ : " + listItem.getTeacherName());
+        holder.textStudentAddress.setText("عنوان الدارس : " + listItem.getAddress());
+        holder.textStudentPhoneNumber.setText("هاتف الدارس : " + listItem.getPhone());
         holder.timestamp.setText(listItem.getDate());
     }
 
@@ -49,6 +50,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textStudentName;
+        public TextView textTeacherName;
         public TextView textStudentAddress;
         public TextView textStudentPhoneNumber;
         public TextView timestamp;
@@ -57,8 +59,9 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             super(itemView);
 
             textStudentName = itemView.findViewById(R.id.textStudentName);
-            textStudentAddress = itemView.findViewById(R.id.textteacherName);
-            textStudentPhoneNumber = itemView.findViewById(R.id.textTaskDetails);
+            textTeacherName = itemView.findViewById(R.id.textteacherName);
+            textStudentAddress = itemView.findViewById(R.id.textStudentAddress);
+            textStudentPhoneNumber = itemView.findViewById(R.id.textStudentPhone);
             timestamp = itemView.findViewById(R.id.timestamp);
 
         }

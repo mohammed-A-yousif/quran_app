@@ -19,7 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.quranapp.AddingStudent;
+import com.example.quranapp.InternetStatus;
 import com.example.quranapp.R;
 import com.example.quranapp.model.Student;
 import com.example.quranapp.adapter.StudentAdapter;
@@ -75,8 +75,13 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
             finish();
         });
 
+        if (InternetStatus.getInstance(this).isOnline()) {
+            getStudents();
+        } else {
+            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
+                    .setAction("محاولة مرة اخري", v -> getStudents()).show();
+        }
 
-        getStudents();
     }
 
 
@@ -89,9 +94,11 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
                 for (int i = 0; i < jsonArray.length(); i ++){
                     JSONObject StudentObject = jsonArray.getJSONObject(i);
                     String Name = StudentObject.getString("Name");
+                    String TeacherName = StudentObject.getString("Teacher");
+                    String Address = StudentObject.getString("Address");
                     String PhoneNumber = StudentObject.getString("PhoneNumber");
                     String Date = StudentObject.getString("CreatedAt");
-                    Student listItem = new Student(Name, PhoneNumber, Date);
+                    Student listItem = new Student(Name, TeacherName, Address, PhoneNumber, Date);
                     listItems.add(listItem);
                 }
 

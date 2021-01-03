@@ -18,7 +18,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.quranapp.TaskAdapter;
+import com.example.quranapp.InternetStatus;
+import com.example.quranapp.adapter.TaskAdapter;
 import com.example.quranapp.R;
 import com.example.quranapp.ViewDialog;
 import com.example.quranapp.model.Task;
@@ -64,11 +65,18 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
             finish();
         });
 
-        getTasks();
+        if (InternetStatus.getInstance(this).isOnline()) {
+            getTasks();
+        } else {
+            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
+                    .setAction("محاولة مرة اخري", v -> getTasks()).show();
+        }
+
 
     }
 
     private void getTasks() {
+        viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetSTasks  , response -> {
             try {
@@ -78,8 +86,11 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
                     int Id = TaskObject.getInt("IdTask");
                     String TaskName = TaskObject.getString("TaskName");
                     String TaskDec = TaskObject.getString("TaskDec");
+                    String Teacher = TaskObject.getString("Teacher");
+                    String Student = TaskObject.getString("Student");
+                    int TaskStatus = TaskObject.getInt("TaskStatus");
                     String CreatedAt = TaskObject.getString("CreatedAt");
-                    Task listItem = new Task(Id,TaskName, TaskDec, CreatedAt);
+                    Task listItem = new Task(Id,TaskName, TaskDec, Teacher, Student,TaskStatus, CreatedAt);
                     listItems.add(listItem);
                 }
 

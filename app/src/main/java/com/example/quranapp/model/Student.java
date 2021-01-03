@@ -2,12 +2,16 @@ package com.example.quranapp.model;
 
 public class Student {
     String name;
+    String TeacherName;
+    String Address;
     String phone;
     String date;
 
 
-    public Student(String name, String phone, String date) {
+    public Student(String name, String TeacherName, String Address, String phone, String date) {
         this.name = name;
+        this.TeacherName = TeacherName;
+        this.Address = Address;
         this.phone = phone;
         this.date = date;
     }
@@ -25,8 +29,24 @@ public class Student {
         this.date = date;
     }
 
+    public void setTeacherName(String teacherName) {
+        TeacherName = teacherName;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public String getTeacherName() {
+        return TeacherName;
     }
 
     public String getPhone() {

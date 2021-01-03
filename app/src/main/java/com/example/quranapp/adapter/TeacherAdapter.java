@@ -19,9 +19,11 @@ import java.util.List;
 public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHolder> implements Filterable {
     private List<Teacher> listItems;
     private List<Teacher> listItemsFiltered;
+    private TeacherAdapterListener mListener;
 
-    public TeacherAdapter(List<Teacher> listItems, Context context) {
+    public TeacherAdapter(List<Teacher> listItems, Context context, TeacherAdapterListener mListener) {
         this.listItems = listItems;
+        this.mListener = mListener;
         listItemsFiltered = new ArrayList<>(listItems);
     }
 
@@ -35,9 +37,9 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Teacher listItem = listItems.get(position);
-        holder.textTeacherName.setText(listItem.getName());
-        holder.textTeacherAddress.setText(listItem.getName());
-        holder.textTeacherPhoneNumber.setText(listItem.getPhone());
+        holder.textTeacherName.setText("اسم الشيخ : " + listItem.getName());
+        holder.textTeacherAddress.setText("عنوان الشيخ : " + listItem.getAddress());
+        holder.textTeacherPhoneNumber.setText("هاتف الشيخ : " + listItem.getPhone());
         holder.timestamp.setText(listItem.getDate());
     }
 
@@ -59,6 +61,11 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
             textTeacherAddress = itemView.findViewById(R.id.textTeacherAddress);
             textTeacherPhoneNumber = itemView.findViewById(R.id.textTeacherPhoneNumber);
             timestamp = itemView.findViewById(R.id.timestamp);
+
+            itemView.setOnClickListener(view -> {
+                mListener.onTeacherSelected(listItems.get(getAdapterPosition()));
+            });
+
         }
     }
 
