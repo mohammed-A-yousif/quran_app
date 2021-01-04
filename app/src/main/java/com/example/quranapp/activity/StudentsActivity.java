@@ -62,6 +62,7 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
         studentsFAB.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), AddingStudent.class);
             startActivity(i);
+            finish();
         });
 
 

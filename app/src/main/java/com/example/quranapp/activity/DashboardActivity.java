@@ -25,7 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         TextView UserName = findViewById(R.id.text_user_name);
         String admin = SharedPrefManager.getInstance(this).getAdmin().getName();
-        UserName.setText("مرحبا بك ! " + admin);
+        UserName.setText("مرحبا بك " + admin + " ! ");
 
         teach_cardView.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), TeacherActivity.class);
@@ -35,6 +35,7 @@ public class DashboardActivity extends AppCompatActivity {
         students_cardView.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
             startActivity(i);
+
         });
 
         missions_cardView.setOnClickListener(v -> {

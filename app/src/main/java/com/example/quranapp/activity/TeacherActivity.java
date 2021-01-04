@@ -63,6 +63,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
         AddTeacherBtn.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
             startActivity(i);
+            finish();
         });
 
 
