@@ -101,15 +101,15 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
             } catch (JSONException e) {
                 e.printStackTrace();
                 viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), "Couldn't get Students " + e , Snackbar.LENGTH_LONG)
-                        .setAction("Retry", v -> getTasks()).show();
+                Snackbar.make(findViewById(android.R.id.content), "  فشل عرض المهات " + e , Snackbar.LENGTH_LONG)
+                        .setAction("محاولة مرة اخري", v -> getTasks()).show();
             }
 
         }, error -> {
             error.printStackTrace();
             viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content),"Couldn't get Students " + error , Snackbar.LENGTH_LONG)
-                    .setAction("Retry", v -> getTasks()).show();
+            Snackbar.make(findViewById(android.R.id.content)," فشل عرض المهات " + error , Snackbar.LENGTH_LONG)
+                    .setAction("محاولة مرة اخري", v -> getTasks()).show();
         });
 
         requestQueue.add(stringRequest);

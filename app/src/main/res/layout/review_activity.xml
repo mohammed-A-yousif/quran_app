@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:theme="@style/calenderView"
-    android:background="#D8D7D7">
+   >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/review_cardView"
@@ -18,7 +18,8 @@
         android:background="#ffffff"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="15dp"
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +33,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#9771FE"
+                android:background="@color/bg"
                 android:orientation="vertical">
 
                 <TextView
@@ -53,6 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
                     android:textColor="#FFFFFF" />
@@ -76,7 +78,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="8dp"
                 android:textColor="#ffffff"
-                android:background="@drawable/round_corner"
+                android:background="@color/bg"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="عرض المراجعات"

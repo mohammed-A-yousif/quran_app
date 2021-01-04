@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -94,29 +95,29 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         addStudentSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView) view).setTextColor(Color.BLACK);
+                ((TextView) view).setTextColor(Color.WHITE);
+                ((TextView) view).setGravity(Gravity.RIGHT);
                 IdTeacher = listItems.get(position).getId();
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Snackbar.make(findViewById(android.R.id.content), "Please Choose Teacher !!! ", Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(android.R.id.content), "الرجاء اختيار الشيخ ", Snackbar.LENGTH_LONG)
                         .show();
             }
         });
 
 
         addStudentButton.setOnClickListener(v -> {
-
             addStudent();
-            Intent i = new Intent(getApplicationContext(), StudentsActivity.class);
-            startActivity(i);
+
         });
     }
 
 
     public void GetTeacher(){
+
         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetTeachers, response -> {
@@ -165,8 +166,9 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
         student_password_ = student_password_editText.getText().toString();
         student_work_ = student_work_editText.getText().toString();
         student_AcademicLevel_ = student_living_editText.getText().toString();
-
-
+        if (!validate()) {
+            return;
+        }
         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,  URLs.AddStudent + "?IdAdmin=" + SharedPrefManager.getInstance(this).getAdmin().getId() + "&IdTeacher=" + IdTeacher  + "&Name=" + student_name_  + "&Password=" + student_password_
@@ -204,7 +206,7 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
 
     private void onInsertFailed() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "adding task failed", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "  فشل اضافة الدارس ، الرجاء اعادة المحاولة", Snackbar.LENGTH_LONG)
                 .setAction("Try Again", v -> {
                     addStudent();
                 }).show();
@@ -212,9 +214,36 @@ public class AddingStudent extends AppCompatActivity implements AdapterView.OnIt
 
     private void onInsertSuccess() {
         viewDialog.hideDialog();
-        Snackbar.make(findViewById(android.R.id.content), "adding task done", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "  تمت اضافة الدارس بنجاح", Snackbar.LENGTH_LONG)
                 .show();
         startActivity(new Intent(this, StudentsActivity.class));
         finish();
+    }
+
+    private boolean validate() {
+        boolean valid = true;
+
+        if (student_name_.length() == 0 ) {
+            student_name_editText.setError("الرجاء ادخال اسم الدارس");
+            valid = false;
+        } else {
+            student_name_editText.setError(null);
+        }
+
+        if (student_phone_.length()  == 0) {
+            student_phone_editText.setError("الرجاء ادخال رقم الهاتف ");
+            valid = false;
+        } else {
+            student_phone_editText.setError(null);
+        }
+
+        if (student_password_.length()  == 0) {
+            student_password_editText.setError("كلمة السر يجب ان تحتوي علي اربعة حروف علي الاقل ");
+            valid = false;
+        } else {
+            student_password_editText.setError(null);
+        }
+
+        return valid;
     }
 }

@@ -102,14 +102,14 @@ public class StudentsReviews extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
                 viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), " تعذر عرض الدارسين " + e , Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(android.R.id.content), " تعذر عرض المهات " + e , Snackbar.LENGTH_LONG)
                         .setAction("محاولة مرة اخري", v -> GetRview(DatePicekd)).show();
             }
 
         }, error -> {
             error.printStackTrace();
             viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content), " تعذر عرض الدارسين " + error , Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(android.R.id.content), " تعذر عرض المهات " + error , Snackbar.LENGTH_LONG)
                     .setAction("محاولة مرة اخري", v -> GetRview(DatePicekd)).show();
         });
 
