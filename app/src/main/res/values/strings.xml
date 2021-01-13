@@ -32,5 +32,6 @@
     <string name="student_phonenumber">الهاتف</string>
     <string name="pick_teacher">اختر الشيخ :</string>
     <string name="student_address">السكن</string>
+    <string name="search">Search</string>
 
 </resources>

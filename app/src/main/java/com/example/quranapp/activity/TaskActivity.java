@@ -34,7 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskActivity extends AppCompatActivity implements TaskAdapter.MissionsAdapterListener {
+public class TaskActivity extends AppCompatActivity implements TaskAdapter.TaskAdapterListener {
     private TaskAdapter adapter;
     private JSONArray jsonArray;
     List<Task> listItems ;
@@ -55,7 +55,8 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listItems = new ArrayList<>();
 
-        adapter = new TaskAdapter(listItems, this);
+        adapter = new TaskAdapter(listItems, this, this::onContactSelected);
+        recyclerView.setAdapter(adapter);
         recyclerView.setAdapter(adapter);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,12 +138,23 @@ public class TaskActivity extends AppCompatActivity implements TaskAdapter.Missi
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+//                adapter.getFilter().filter(newText);
+                filter(newText);
                 return false;
             }
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void filter(String text) {
+        ArrayList<Task> filteredList = new ArrayList<>();
+        for (Task item : listItems) {
+            if (item.getStudent().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 
     @Override

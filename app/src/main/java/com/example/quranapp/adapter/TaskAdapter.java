@@ -25,9 +25,12 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> implements Filterable {
     private List<Task> listItems;
     private List<Task> listItemsFiltered;
+    private TaskAdapterListener mListener;
 
-    public TaskAdapter(List<Task> listItems, Context context) {
+
+    public TaskAdapter(List<Task> listItems, Context context, TaskAdapterListener mListener) {
         this.listItems = listItems;
+        this.mListener = mListener;
         listItemsFiltered = new ArrayList<>(listItems);
 
     }
@@ -106,8 +109,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> im
         }
     };
 
-    public interface MissionsAdapterListener {
+    public interface TaskAdapterListener {
         void onContactSelected(Teacher teacher);
+    }
+
+    public void filterList(ArrayList<Task> filteredList) {
+        listItems = filteredList;
+        notifyDataSetChanged();
+
     }
 
 }

@@ -25,6 +25,7 @@ import com.example.quranapp.model.Student;
 import com.example.quranapp.adapter.StudentAdapter;
 import com.example.quranapp.URLs;
 import com.example.quranapp.ViewDialog;
+import com.example.quranapp.model.Teacher;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -146,13 +147,23 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-
+//                adapter.getFilter().filter(newText);
+                filter(newText);
                 return false;
             }
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void filter(String text) {
+        ArrayList<Student> filteredList = new ArrayList<>();
+        for (Student item : listItems) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 
     @Override

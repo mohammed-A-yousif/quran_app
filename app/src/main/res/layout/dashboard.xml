@@ -138,7 +138,8 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/review_student"
                 android:textColor="@android:color/white"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:gravity="center"/>
 
         </LinearLayout>
 

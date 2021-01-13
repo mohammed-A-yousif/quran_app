@@ -1,12 +1,18 @@
 package com.example.quranapp.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import com.example.quranapp.R;
@@ -24,6 +30,15 @@ public class ReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.review_activity);
 
+        Toolbar toolbar = findViewById(R.id.review_toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+
         viewDialog = new ViewDialog(this);
         CardView cardView = findViewById(R.id.review_cardView);
         Button addReviewTextButton = findViewById(R.id.add_review_textButton);
@@ -39,7 +54,7 @@ public class ReviewActivity extends AppCompatActivity {
 
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-             DatePicked = sdf.format(new Date(year - 1900, month, dayOfMonth));
+            DatePicked = sdf.format(new Date(year - 1900, month, dayOfMonth));
             yearTextView.setText(DatePicked);
         });
 
@@ -50,6 +65,5 @@ public class ReviewActivity extends AppCompatActivity {
 
         });
     }
-
 
 }

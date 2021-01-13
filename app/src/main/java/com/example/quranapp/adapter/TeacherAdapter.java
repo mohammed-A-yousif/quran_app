@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Filterable;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -77,32 +78,40 @@ public class TeacherAdapter extends RecyclerView.Adapter<TeacherAdapter.ViewHold
     private Filter teacherFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Teacher> filteredList =new ArrayList<>();
+            List<Teacher> filteredList = new ArrayList<>();
 
-            if (constraint==null|| constraint.length()==0){
+            if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(listItemsFiltered);
-            }else {
+            } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
-                for (Teacher item : listItemsFiltered){
-                    if (item.getName().toLowerCase().contains(filterPattern) || item.getPhone().contains(filterPattern)){
+                for (Teacher item : listItemsFiltered) {
+                    if (item.getName().toLowerCase().contains(filterPattern) || item.getPhone().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
             }
-            FilterResults results =new FilterResults();
-            results.values=filteredList;
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
             return results;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             listItems.clear();
-            listItems.addAll((List)results.values);
+            listItems.addAll((List) results.values);
             notifyDataSetChanged();
 
         }
     };
+
     public interface TeacherAdapterListener {
         void onTeacherSelected(Teacher teacher);
     }
+
+    public void filterList(ArrayList<Teacher> filteredList) {
+        listItems = filteredList;
+        notifyDataSetChanged();
+
+    }
+
 }

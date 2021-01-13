@@ -40,7 +40,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
     private TeacherAdapter adapter;
     private JSONArray jsonArray;
 
-    List<Teacher> listItems ;
+    List<Teacher> listItems;
     ViewDialog viewDialog;
 
     @Override
@@ -67,7 +67,6 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
         });
 
 
-
         adapter = new TeacherAdapter(listItems, this, this::onTeacherSelected);
         recyclerView.setAdapter(adapter);
 
@@ -81,7 +80,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
         if (InternetStatus.getInstance(this).isOnline()) {
             GetTeacher();
         } else {
-            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت ", Snackbar.LENGTH_LONG)
                     .setAction("محاولة مرة اخري", v -> GetTeacher()).show();
         }
 
@@ -89,20 +88,20 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
     }
 
 
-    public void GetTeacher(){
+    public void GetTeacher() {
         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetTeachers, response -> {
             try {
                 jsonArray = new JSONArray(response);
-                for (int i = 0; i < jsonArray.length(); i ++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject TeacherObject = jsonArray.getJSONObject(i);
                     int Id = TeacherObject.getInt("IdTeacher");
                     String Name = TeacherObject.getString("Name");
                     String Address = TeacherObject.getString("Address");
                     String PhoneNumber = TeacherObject.getString("PhoneNumber");
                     String Date = TeacherObject.getString("CreatedAt");
-                    Teacher listItem = new Teacher(Id, Name,Address, PhoneNumber, Date);
+                    Teacher listItem = new Teacher(Id, Name, Address, PhoneNumber, Date);
                     listItems.add(listItem);
                 }
 
@@ -113,14 +112,14 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
             } catch (JSONException e) {
                 e.printStackTrace();
                 viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + e , Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + e, Snackbar.LENGTH_LONG)
                         .setAction("محاولة مرة اخري", v -> GetTeacher()).show();
             }
 
         }, error -> {
             error.printStackTrace();
             viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + error , Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + error, Snackbar.LENGTH_LONG)
                     .setAction(" محاولة مرة اخري ", v -> GetTeacher()).show();
         });
 
@@ -128,9 +127,6 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
         requestQueue.add(stringRequest);
 
     }
-
-
-
 
 
     @Override
@@ -154,12 +150,23 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
+//                adapter.getFilter().filter(newText);
+                filter(newText);
                 return false;
             }
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void filter(String text) {
+        ArrayList<Teacher> filteredList = new ArrayList<>();
+        for (Teacher item : listItems) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 
     @Override
