@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.quranapp.InternetStatus;
 import com.example.quranapp.R;
+import com.example.quranapp.adapter.TeacherAdapter;
 import com.example.quranapp.model.Student;
 import com.example.quranapp.adapter.StudentAdapter;
 import com.example.quranapp.URLs;
@@ -36,12 +37,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentsActivity extends AppCompatActivity implements StudentAdapter.StudentAdapterListener {
-
-    private StudentAdapter adapter;
+public class StudentsActivity extends AppCompatActivity {
     private JSONArray jsonArray;
 
-    List<Student> listItems ;
+    private ArrayList<Student> listItems;
+
+    private RecyclerView recyclerView;
+    private StudentAdapter adapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    //    List<Teacher> listItems;
     ViewDialog viewDialog;
 
     @Override
@@ -49,31 +54,41 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.students_activity);
 
+        //      Toolbar
         Toolbar toolbar = findViewById(R.id.student_toolbar);
         setSupportActionBar(toolbar);
-        viewDialog = new ViewDialog(this);
-
-        RecyclerView recyclerView = findViewById(R.id.students_recyclerView);
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        listItems = new ArrayList<>();
-
-        FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
-        studentsFAB.setOnClickListener(v -> {
-            Intent i = new Intent(getApplicationContext(), AddingStudent.class);
-            startActivity(i);
-            finish();
-        });
-
-
-        adapter = new StudentAdapter(listItems, this);
-        recyclerView.setAdapter(adapter);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(R.string.toolbar_title);
 
         toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
+
+        //      ExampleList
+        listItems = new ArrayList<>();
+
+        //      buildRecyclerView
+        recyclerView = findViewById(R.id.students_recyclerView);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        adapter = new StudentAdapter(listItems);
+
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new StudentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+//              ################
+                Toast.makeText(getApplicationContext(), "Selected ^_*", Toast.LENGTH_LONG).show();
+//              ################
+            }
+        });
+        viewDialog = new ViewDialog(this);
+        FloatingActionButton studentsFAB = findViewById(R.id.students_fab);
+        studentsFAB.setOnClickListener(v -> {
+            Intent i = new Intent(getApplicationContext(), AddingStudent.class);
+            startActivity(i);
             finish();
         });
 
@@ -83,9 +98,7 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
             Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
                     .setAction("محاولة مرة اخري", v -> getStudents()).show();
         }
-
     }
-
 
     public void getStudents(){
         viewDialog.showDialog();
@@ -123,7 +136,6 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
         });
 
         requestQueue.add(stringRequest);
-
     }
 
     @Override
@@ -164,11 +176,6 @@ public class StudentsActivity extends AppCompatActivity implements StudentAdapte
             }
         }
         adapter.filterList(filteredList);
-    }
-
-    @Override
-    public void onStudentSelected(Student student) {
-        Toast.makeText(getApplicationContext(), "Selected: " + student.getName() + ", " + student.getPhone(), Toast.LENGTH_LONG).show();
     }
 }
 

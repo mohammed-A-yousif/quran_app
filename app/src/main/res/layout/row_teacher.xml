@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardCornerRadius="10dp"
-    android:background="@color/bg"
-    >
+    android:background="@color/bg">
 
     <LinearLayout
         android:layout_width="match_parent"
