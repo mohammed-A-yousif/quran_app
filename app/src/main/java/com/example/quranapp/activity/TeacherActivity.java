@@ -35,12 +35,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherActivity extends AppCompatActivity implements TeacherAdapter.TeacherAdapterListener {
-
-    private TeacherAdapter adapter;
+public class TeacherActivity extends AppCompatActivity {
     private JSONArray jsonArray;
 
-    List<Teacher> listItems;
+    private ArrayList<Teacher> listItems;
+
+    private RecyclerView recyclerView;
+    private TeacherAdapter adapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    //    List<Teacher> listItems;
     ViewDialog viewDialog;
 
     @Override
@@ -48,32 +52,43 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
 
+//      Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_teach);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.toolbar_title);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView_teacher);
-        recyclerView.setHasFixedSize(true);
+        toolbar.setNavigationOnClickListener(v -> {
+            finish();
+        });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        viewDialog = new ViewDialog(this);
-
+//      ExampleList
         listItems = new ArrayList<>();
+
+//      buildRecyclerView
+        recyclerView = findViewById(R.id.recyclerView_teacher);
+        recyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        adapter = new TeacherAdapter(listItems);
+
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new TeacherAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+//              ################
+                Toast.makeText(getApplicationContext(), "Selected ^_*", Toast.LENGTH_LONG).show();
+//              ################
+            }
+        });
+
+        viewDialog = new ViewDialog(this);
         FloatingActionButton AddTeacherBtn = findViewById(R.id.teacher_fab);
 
         AddTeacherBtn.setOnClickListener(v -> {
             Intent i = new Intent(getApplicationContext(), AddingTeacher.class);
             startActivity(i);
-            finish();
-        });
-
-
-        adapter = new TeacherAdapter(listItems, this, this::onTeacherSelected);
-        recyclerView.setAdapter(adapter);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.toolbar_title);
-
-        toolbar.setNavigationOnClickListener(v -> {
             finish();
         });
 
@@ -83,10 +98,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
             Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت ", Snackbar.LENGTH_LONG)
                     .setAction("محاولة مرة اخري", v -> GetTeacher()).show();
         }
-
-
     }
-
 
     public void GetTeacher() {
         viewDialog.showDialog();
@@ -122,10 +134,7 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
             Snackbar.make(findViewById(android.R.id.content), "تعذر عرض الشيوخ " + error, Snackbar.LENGTH_LONG)
                     .setAction(" محاولة مرة اخري ", v -> GetTeacher()).show();
         });
-
-
         requestQueue.add(stringRequest);
-
     }
 
 
@@ -167,12 +176,6 @@ public class TeacherActivity extends AppCompatActivity implements TeacherAdapter
             }
         }
         adapter.filterList(filteredList);
-    }
-
-    @Override
-    public void onTeacherSelected(Teacher teacher) {
-        Log.d("selected", teacher.getName());
-        Toast.makeText(getApplicationContext(), "Selected: " + teacher.getName() + ", " + teacher.getPhone(), Toast.LENGTH_LONG).show();
     }
 }
 
