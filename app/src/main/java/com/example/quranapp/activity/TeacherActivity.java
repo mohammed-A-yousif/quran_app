@@ -78,7 +78,9 @@ public class TeacherActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
 //              ################
-                Toast.makeText(getApplicationContext(), "Selected ^_*", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), ViewTeacher.class);
+                startActivity(i);
+                finish();
 //              ################
             }
         });

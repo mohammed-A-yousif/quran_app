@@ -30,10 +30,12 @@ public class ReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.review_activity);
 
+
+        //      Toolbar
         Toolbar toolbar = findViewById(R.id.review_toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         toolbar.setNavigationOnClickListener(v -> {
             finish();
         });

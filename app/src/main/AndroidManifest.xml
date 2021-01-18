@@ -43,6 +43,12 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <!-- view teacher activity -->
+        <activity
+            android:name=".activity.ViewTeacher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
 
         <!-- addingTeacher activity -->
         <activity
@@ -53,6 +59,12 @@
         <!-- students activity -->
         <activity
             android:name=".activity.StudentsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- view student activity -->
+        <activity
+            android:name=".activity.ViewStudent"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
