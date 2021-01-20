@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -46,6 +47,10 @@ public class StudentsActivity extends AppCompatActivity {
     private StudentAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    SharedPreferences sp;
+    String nameStr, teacherNameStr, addressStr, phoneStr;
+    Student item;
+
     //    List<Teacher> listItems;
     ViewDialog viewDialog;
 
@@ -54,7 +59,12 @@ public class StudentsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.students_activity);
 
-        //      Toolbar
+//      @@@@@@
+        sp = getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE);
+//      @@@@@@
+
+
+//      Toolbar
         Toolbar toolbar = findViewById(R.id.student_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -64,10 +74,10 @@ public class StudentsActivity extends AppCompatActivity {
             finish();
         });
 
-        //      ExampleList
+//      ExampleList
         listItems = new ArrayList<>();
 
-        //      buildRecyclerView
+//      buildRecyclerView
         recyclerView = findViewById(R.id.students_recyclerView);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -80,6 +90,22 @@ public class StudentsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
 //              ################
+                item = listItems.get(position);
+                nameStr = item.getName();
+                teacherNameStr = item.getTeacherName();
+                addressStr = item.getAddress();
+                phoneStr = item.getPhone();
+
+
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("name", nameStr);
+                editor.putString("teacherName", teacherNameStr);
+                editor.putString("address", addressStr);
+                editor.putString("phone", phoneStr);
+
+                editor.commit();
+
+
                 Intent i = new Intent(getApplicationContext(), ViewStudent.class);
                 startActivity(i);
                 finish();
@@ -97,18 +123,18 @@ public class StudentsActivity extends AppCompatActivity {
         if (InternetStatus.getInstance(this).isOnline()) {
             getStudents();
         } else {
-            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت " , Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(android.R.id.content), " غير متصل بالانترت حاليا ، الرجاء مراجعةالأنترنت ", Snackbar.LENGTH_LONG)
                     .setAction("محاولة مرة اخري", v -> getStudents()).show();
         }
     }
 
-    public void getStudents(){
+    public void getStudents() {
         viewDialog.showDialog();
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URLs.GetStudents, response -> {
             try {
                 jsonArray = new JSONArray(response);
-                for (int i = 0; i < jsonArray.length(); i ++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject StudentObject = jsonArray.getJSONObject(i);
                     String Name = StudentObject.getString("Name");
                     String TeacherName = StudentObject.getString("Teacher");
@@ -126,14 +152,14 @@ public class StudentsActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
                 viewDialog.hideDialog();
-                Snackbar.make(findViewById(android.R.id.content), " تعذر عرض الدارسين " + e , Snackbar.LENGTH_LONG)
+                Snackbar.make(findViewById(android.R.id.content), " تعذر عرض الدارسين " + e, Snackbar.LENGTH_LONG)
                         .setAction("محاولة مرة اخري", v -> getStudents()).show();
             }
 
         }, error -> {
             error.printStackTrace();
             viewDialog.hideDialog();
-            Snackbar.make(findViewById(android.R.id.content), " تعذر عرض الدارسين " + error , Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(android.R.id.content), " تعذر عرض الدارسين " + error, Snackbar.LENGTH_LONG)
                     .setAction("محاولة مرة اخري", v -> getStudents()).show();
         });
 

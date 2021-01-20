@@ -3,12 +3,14 @@ package com.example.quranapp.activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.quranapp.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ViewTeacher extends AppCompatActivity {
     @Override
@@ -42,6 +44,12 @@ public class ViewTeacher extends AppCompatActivity {
         address_editText.setHint("السكن: "+address+" ؟!");
         phone_editText.setHint("الهاتف: "+phone+" ؟!");
         password_editText.setHint("كلمة السر: "+"******"+" ؟!");
+
+        Button editStudentButton = findViewById(R.id.edit_btn);
+        editStudentButton.setOnClickListener(v -> {
+            Snackbar.make(findViewById(android.R.id.content), " تم التعديل ", Snackbar.LENGTH_SHORT).show();
+        });
+
 
     }
 
