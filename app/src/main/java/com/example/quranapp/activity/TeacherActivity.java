@@ -46,7 +46,7 @@ public class TeacherActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
 
     SharedPreferences sp;
-    String nameStr, addressStr, phoneStr, dateStr;
+    String nameStr, addressStr, phoneStr;
     Teacher item;
 
     //    List<Teacher> listItems;
@@ -88,9 +88,15 @@ public class TeacherActivity extends AppCompatActivity {
 //              ################
                 item = listItems.get(position);
                 nameStr = item.getName();
+                addressStr = item.getAddress();
+                phoneStr = item.getPhone();
+
 
                 SharedPreferences.Editor editor = sp.edit();
                 editor.putString("name", nameStr);
+                editor.putString("address", addressStr);
+                editor.putString("phone", phoneStr);
+
                 editor.commit();
 
                 Intent i = new Intent(getApplicationContext(), ViewTeacher.class);
