@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -44,6 +45,10 @@ public class TeacherActivity extends AppCompatActivity {
     private TeacherAdapter adapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    SharedPreferences sp;
+    String nameStr, addressStr, phoneStr, dateStr;
+    Teacher item;
+
     //    List<Teacher> listItems;
     ViewDialog viewDialog;
 
@@ -51,6 +56,9 @@ public class TeacherActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher);
+//        @@@@@@
+        sp = getSharedPreferences("TeacherPrefs", Context.MODE_PRIVATE);
+//        @@@@@@
 
 //      Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_teach);
@@ -78,6 +86,13 @@ public class TeacherActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
 //              ################
+                item = listItems.get(position);
+                nameStr = item.getName();
+
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("name", nameStr);
+                editor.commit();
+
                 Intent i = new Intent(getApplicationContext(), ViewTeacher.class);
                 startActivity(i);
                 finish();
