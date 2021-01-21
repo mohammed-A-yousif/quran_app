@@ -104,6 +104,10 @@ public class ViewStudent extends AppCompatActivity implements AdapterView.OnItem
         address_editText.setHint("السكن: " + address + " ؟!");
         phone_editText.setHint("الهاتف: " + phone + " ؟!");
         password_editText.setHint("كلمة السر: " + "******" + " ؟!");
+        work_editText.setHint("عمل لدى: " + "طالب" + " ؟!");
+        academicLevel_editText.setHint("المستوى الدراسي: " + "جامعي" + " ؟!");
+
+
 
 
         Button editStudentButton = findViewById(R.id.edit_btn);
