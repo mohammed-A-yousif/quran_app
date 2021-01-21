@@ -90,7 +90,6 @@ public class ViewStudent extends AppCompatActivity implements AdapterView.OnItem
         work_editText = findViewById(R.id.work_editText);
         academicLevel_editText = findViewById(R.id.edu_level_editText);
 
-
 //      instantiate SharedPreferences
         SharedPreferences sp = getApplicationContext().getSharedPreferences("StudentPrefs", Context.MODE_PRIVATE);
 
@@ -106,9 +105,6 @@ public class ViewStudent extends AppCompatActivity implements AdapterView.OnItem
         password_editText.setHint("كلمة السر: " + "******" + " ؟!");
         work_editText.setHint("عمل لدى: " + "طالب" + " ؟!");
         academicLevel_editText.setHint("المستوى الدراسي: " + "جامعي" + " ؟!");
-
-
-
 
         Button editStudentButton = findViewById(R.id.edit_btn);
         editStudentSpinner = findViewById(R.id.view_student_spinner);
